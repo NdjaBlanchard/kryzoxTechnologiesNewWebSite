@@ -136,6 +136,7 @@ app.get('/', (c) => {
             Digital Factory Africaine
           </div>
 
+          {/* Colonne gauche — Titre */}
           <h1 class="hero__title">
             Vos données,
             <br />
@@ -144,38 +145,41 @@ app.get('/', (c) => {
             <span class="hero__title-accent">votre avantage décisif.</span>
           </h1>
 
-          <p class="hero__subtitle">
-            La Digital Factory qui transforme la donnée africaine en levier stratégique&nbsp;—
-            <strong> en 90 jours, pas en 3 ans.</strong>
-          </p>
+          {/* Colonne droite — Description + boutons + stats */}
+          <div class="hero__right">
+            <p class="hero__subtitle">
+              La Digital Factory qui transforme la donnée africaine en levier stratégique&nbsp;—
+              <strong> en 90 jours, pas en 3 ans.</strong>
+            </p>
 
-          <div class="hero__actions">
-            <a href="#services" class="hero__btn hero__btn--primary">
-              Découvrir nos services
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                <path d="M3 8H13M9 4L13 8L9 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </a>
-            <a href="#contact" class="hero__btn hero__btn--outline">
-              Parler à un expert
-            </a>
-          </div>
+            <div class="hero__actions">
+              <a href="#services" class="hero__btn hero__btn--primary">
+                Découvrir nos services
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                  <path d="M3 8H13M9 4L13 8L9 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </a>
+              <a href="#contact" class="hero__btn hero__btn--outline">
+                Parler à un expert
+              </a>
+            </div>
 
-          {/* Stats */}
-          <div class="hero__stats">
-            <div class="hero__stat">
-              <span class="hero__stat-number">90</span>
-              <span class="hero__stat-label">Jours pour livrer</span>
-            </div>
-            <div class="hero__stat-divider" aria-hidden="true"></div>
-            <div class="hero__stat">
-              <span class="hero__stat-number">6</span>
-              <span class="hero__stat-label">Domaines d'expertise</span>
-            </div>
-            <div class="hero__stat-divider" aria-hidden="true"></div>
-            <div class="hero__stat">
-              <span class="hero__stat-number">100%</span>
-              <span class="hero__stat-label">Souverain & sécurisé</span>
+            {/* Stats */}
+            <div class="hero__stats">
+              <div class="hero__stat">
+                <span class="hero__stat-number">90</span>
+                <span class="hero__stat-label">Jours pour livrer</span>
+              </div>
+              <div class="hero__stat-divider" aria-hidden="true"></div>
+              <div class="hero__stat">
+                <span class="hero__stat-number">6</span>
+                <span class="hero__stat-label">Domaines d'expertise</span>
+              </div>
+              <div class="hero__stat-divider" aria-hidden="true"></div>
+              <div class="hero__stat">
+                <span class="hero__stat-number">100%</span>
+                <span class="hero__stat-label">Souverain & sécurisé</span>
+              </div>
             </div>
           </div>
         </div>
