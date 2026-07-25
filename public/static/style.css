@@ -488,10 +488,23 @@ img { display: block; max-width: 100%; }
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  overflow: visible; /* allow clip-path to show below */
-  /* Forme en pointe de triangle large vers le bas via clip-path */
-  clip-path: polygon(0 0, 100% 0, 100% 82%, 50% 100%, 0 82%);
-  margin-bottom: -2px; /* colle avec la section suivante */
+  overflow: hidden;
+  /* La pointe est gérée par ::after pour ne pas couper le contenu */
+}
+
+/* ── Pointe triangulaire en bas — pseudo-élément sur le wrapper ── */
+/* On crée un élément blanc en forme de pointe qui se superpose au bas de la hero */
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 100%;
+  height: 12%;
+  background: var(--clr-bg-light); /* couleur de fond de la page */
+  clip-path: polygon(0 100%, 50% 0%, 100% 100%);
+  z-index: 4; /* au-dessus du contenu image mais sous le texte */
+  pointer-events: none;
 }
 
 /* ── Background image ── */
@@ -553,7 +566,6 @@ img { display: block; max-width: 100%; }
   z-index: 2;
   overflow: hidden;
   pointer-events: none;
-  clip-path: inherit;
 
 .hero__particle {
   position: absolute;
@@ -599,10 +611,10 @@ img { display: block; max-width: 100%; }
 /* ── Contenu ── */
 .hero__content {
   position: relative;
-  z-index: 3;
+  z-index: 5; /* au-dessus du ::after blanc */
   max-width: 1280px;
   width: 100%;
-  padding: calc(var(--nav-height) + 3rem) 4rem 8rem;
+  padding: calc(var(--nav-height) + 3rem) 4rem 6rem;
   /* Layout 2 colonnes : titre gauche, description droite */
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -810,10 +822,10 @@ img { display: block; max-width: 100%; }
 /* ── Scroll indicator ── */
 .hero__scroll {
   position: absolute;
-  bottom: 14%;  /* au-dessus de la pointe */
+  bottom: 15%;  /* au-dessus de la pointe */
   left: 50%;
   transform: translateX(-50%);
-  z-index: 3;
+  z-index: 5;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -909,13 +921,12 @@ img { display: block; max-width: 100%; }
     padding: 0 1.25rem;
   }
 
-  .hero {
-    clip-path: polygon(0 0, 100% 0, 100% 86%, 50% 100%, 0 86%);
-    min-height: 75vh;
+  .hero::after {
+    height: 10%;
   }
 
   .hero__content {
-    padding: calc(var(--nav-height) + 1.5rem) 1.25rem 10rem;
+    padding: calc(var(--nav-height) + 1.5rem) 1.25rem 7rem;
   }
 
   .hero__title {
