@@ -334,8 +334,8 @@ app.get("/", (c) => {
 
                 {/* Card — Bases de données */}
                 <article class="apercu__card">
-                  <div class="apercu__card-icon">
-                    <i class="fas fa-database" aria-hidden="true"></i>
+                  <div class="apercu__card-visual">
+                    <img src="/static/svc-database.jpg" alt="Bases de données" />
                   </div>
                   <div class="apercu__card-body">
                     <h4 class="apercu__card-title">Bases de données</h4>
@@ -345,7 +345,7 @@ app.get("/", (c) => {
                     </p>
                     <a href="#contact" class="apercu__card-link">
                       En savoir plus
-                      <svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                      <svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true">
                         <path d="M3 8H13M9 4L13 8L9 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                       </svg>
                     </a>
@@ -354,8 +354,8 @@ app.get("/", (c) => {
 
                 {/* Card — Intelligence des données */}
                 <article class="apercu__card">
-                  <div class="apercu__card-icon">
-                    <i class="fas fa-brain" aria-hidden="true"></i>
+                  <div class="apercu__card-visual">
+                    <img src="/static/svc-intelligence.jpg" alt="Intelligence des données" />
                   </div>
                   <div class="apercu__card-body">
                     <h4 class="apercu__card-title">Intelligence des données</h4>
@@ -365,7 +365,7 @@ app.get("/", (c) => {
                     </p>
                     <a href="#contact" class="apercu__card-link">
                       En savoir plus
-                      <svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                      <svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true">
                         <path d="M3 8H13M9 4L13 8L9 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                       </svg>
                     </a>
@@ -386,8 +386,8 @@ app.get("/", (c) => {
 
                 {/* Card — Stratégie data */}
                 <article class="apercu__card">
-                  <div class="apercu__card-icon">
-                    <i class="fas fa-chess" aria-hidden="true"></i>
+                  <div class="apercu__card-visual">
+                    <img src="/static/svc-strategie.jpg" alt="Stratégie data" />
                   </div>
                   <div class="apercu__card-body">
                     <h4 class="apercu__card-title">Stratégie data</h4>
@@ -397,7 +397,7 @@ app.get("/", (c) => {
                     </p>
                     <a href="#contact" class="apercu__card-link">
                       En savoir plus
-                      <svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                      <svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true">
                         <path d="M3 8H13M9 4L13 8L9 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                       </svg>
                     </a>
@@ -406,8 +406,8 @@ app.get("/", (c) => {
 
                 {/* Card — Formation */}
                 <article class="apercu__card">
-                  <div class="apercu__card-icon">
-                    <i class="fas fa-graduation-cap" aria-hidden="true"></i>
+                  <div class="apercu__card-visual">
+                    <img src="/static/svc-formation.jpg" alt="Formation" />
                   </div>
                   <div class="apercu__card-body">
                     <h4 class="apercu__card-title">Formation</h4>
@@ -417,7 +417,7 @@ app.get("/", (c) => {
                     </p>
                     <a href="#contact" class="apercu__card-link">
                       En savoir plus
-                      <svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                      <svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true">
                         <path d="M3 8H13M9 4L13 8L9 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                       </svg>
                     </a>

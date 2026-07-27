@@ -1150,12 +1150,12 @@ img {
   gap: 1.5rem;
 }
 
-/* ── Carte service ── */
+/* ── Carte service — layout image gauche / contenu droite ── */
 .apercu__card {
   display: grid;
-  grid-template-columns: 100px 1fr;
-  gap: 2rem;
-  padding: 2.25rem;
+  grid-template-columns: 300px 1fr;
+  gap: 3.5rem;
+  padding: 2.5rem;
   background: var(--clr-white);
   border-radius: 20px;
   border: 1px solid rgba(0, 116, 124, 0.08);
@@ -1170,41 +1170,57 @@ img {
   border-color: rgba(0, 116, 124, 0.2);
 }
 
-.apercu__card-icon {
-  width: 100px;
-  height: 100px;
+/* Image gauche de la carte — même style que .apercu__about-visual */
+.apercu__card-visual {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 16px 40px rgba(0, 116, 124, 0.18), 0 4px 12px rgba(0,0,0,0.08);
   flex-shrink: 0;
-  border-radius: 20px;
-  background: linear-gradient(135deg, rgba(0, 116, 124, 0.1), rgba(0, 187, 201, 0.08));
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 2.5rem;
-  color: var(--clr-primary);
-  transition: background var(--transition-fast), transform var(--transition-fast);
 }
 
-.apercu__card:hover .apercu__card-icon {
-  background: linear-gradient(135deg, rgba(0, 116, 124, 0.18), rgba(0, 187, 201, 0.15));
-  transform: scale(1.06);
+.apercu__card-visual img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease;
+}
+
+.apercu__card:hover .apercu__card-visual img {
+  transform: scale(1.05);
+}
+
+/* Bordure décorative teal */
+.apercu__card-visual::before {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: 20px;
+  background: linear-gradient(135deg, var(--clr-primary), var(--clr-accent));
+  z-index: -1;
 }
 
 .apercu__card-body {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 1rem;
 }
 
 .apercu__card-title {
-  font-size: 1.25rem;
-  font-weight: 700;
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 800;
   color: var(--clr-text);
-  line-height: 1.3;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
 }
 
 .apercu__card-text {
-  font-size: 1rem;
-  line-height: 1.8;
+  font-size: 1.05rem;
+  line-height: 1.85;
   color: var(--clr-text-muted);
   flex: 1;
 }
@@ -1213,12 +1229,15 @@ img {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  font-size: 0.95rem;
+  font-size: 1rem;
   font-weight: 600;
   color: var(--clr-primary);
   text-decoration: none;
+  border-bottom: 2px solid rgba(0, 116, 124, 0.25);
+  padding-bottom: 2px;
+  width: fit-content;
   margin-top: 0.25rem;
-  transition: color var(--transition-fast), gap var(--transition-fast);
+  transition: color var(--transition-fast), border-color var(--transition-fast), gap var(--transition-fast);
 }
 
 .apercu__card-link:hover {
@@ -1256,14 +1275,15 @@ img {
     margin: 0 auto;
   }
 
+  /* Cartes services : image au-dessus sur tablette */
   .apercu__card {
-    grid-template-columns: 80px 1fr;
+    grid-template-columns: 1fr;
+    gap: 2rem;
   }
 
-  .apercu__card-icon {
-    width: 80px;
-    height: 80px;
-    font-size: 2rem;
+  .apercu__card-visual {
+    max-width: 320px;
+    margin: 0 auto;
   }
 }
 
@@ -1287,15 +1307,19 @@ img {
   }
 
   .apercu__card {
-    grid-template-columns: 1fr;
-    text-align: center;
+    padding: 1.75rem 1.25rem;
+    gap: 1.5rem;
   }
 
-  .apercu__card-icon {
-    margin: 0 auto;
+  .apercu__card-visual {
+    max-width: 260px;
   }
 
-  .apercu__card-link {
-    justify-content: center;
+  .apercu__card-title {
+    font-size: 1.25rem;
+  }
+
+  .apercu__card-text {
+    font-size: 0.95rem;
   }
 }
