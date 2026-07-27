@@ -286,10 +286,18 @@ app.get("/", (c) => {
 
           {/* ── Sous-section À propos ── */}
           <div id="apropos" class="apercu__about">
-            <div class="apercu__about-label">
-              <span class="apercu__tag">À propos de nous</span>
+
+            {/* Image gauche */}
+            <div class="apercu__about-visual">
+              <img
+                src="/static/about-africa.jpg"
+                alt="Afrique — réseau de données KryzOx Technologies"
+              />
             </div>
+
+            {/* Contenu droite */}
             <div class="apercu__about-body">
+              <span class="apercu__tag">À propos de nous</span>
               <h2 class="apercu__about-title">
                 Une Digital Factory au service de la souveraineté des données africaines
               </h2>
@@ -306,6 +314,7 @@ app.get("/", (c) => {
                 </svg>
               </a>
             </div>
+
           </div>
 
           {/* ── Séparateur ── */}
