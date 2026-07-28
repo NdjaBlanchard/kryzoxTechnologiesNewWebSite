@@ -1116,11 +1116,15 @@ img {
   margin: 0;
 }
 
-/* ── Sous-section Services ── */
+/* ── Sous-section Services — fond sombre ── */
 .apercu__services {
   display: flex;
   flex-direction: column;
-  gap: 3.5rem;
+  gap: 0;
+  background: #0d1f22;
+  border-radius: 24px;
+  padding: 3.5rem;
+  margin-top: 0.5rem;
 }
 
 /* ── Volet (DATA / CONSEIL ET FORMATION) ── */
@@ -1128,6 +1132,12 @@ img {
   display: flex;
   flex-direction: column;
   gap: 2rem;
+  padding-bottom: 3rem;
+}
+
+.apercu__volet + .apercu__volet {
+  padding-top: 3rem;
+  border-top: 1px solid rgba(0, 187, 201, 0.15);
 }
 
 .apercu__volet-header {
@@ -1139,45 +1149,44 @@ img {
 .apercu__volet-line {
   flex: 1;
   height: 2px;
-  background: linear-gradient(90deg, var(--clr-primary) 0%, rgba(0, 187, 201, 0.15) 100%);
+  background: linear-gradient(90deg, var(--clr-accent) 0%, rgba(0, 187, 201, 0.1) 100%);
   border-radius: 2px;
 }
 
-/* ── Liste de cartes (une par ligne) ── */
+/* ── Grille 2 colonnes ── */
 .apercu__cards {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   gap: 1.5rem;
 }
 
-/* ── Carte service — layout image gauche / contenu droite ── */
+/* ── Carte service — layout image haut / contenu bas ── */
 .apercu__card {
-  display: grid;
-  grid-template-columns: 300px 1fr;
-  gap: 3.5rem;
-  padding: 2.5rem;
-  background: var(--clr-white);
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding: 0;
+  background: #122b30;
   border-radius: 20px;
-  border: 1px solid rgba(0, 116, 124, 0.08);
-  box-shadow: var(--shadow-sm);
-  align-items: center;
+  border: 1px solid rgba(0, 187, 201, 0.12);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
   transition: box-shadow var(--transition-med), transform var(--transition-med), border-color var(--transition-med);
 }
 
 .apercu__card:hover {
-  box-shadow: var(--shadow-md);
-  transform: translateY(-3px);
-  border-color: rgba(0, 116, 124, 0.2);
+  box-shadow: 0 12px 40px rgba(0, 187, 201, 0.2), 0 4px 16px rgba(0, 0, 0, 0.4);
+  transform: translateY(-4px);
+  border-color: rgba(0, 187, 201, 0.35);
 }
 
-/* Image gauche de la carte — même style que .apercu__about-visual */
+/* Image haut de la carte */
 .apercu__card-visual {
   position: relative;
   width: 100%;
-  aspect-ratio: 1 / 1;
-  border-radius: 18px;
+  height: 220px;
+  border-radius: 0;
   overflow: hidden;
-  box-shadow: 0 16px 40px rgba(0, 116, 124, 0.18), 0 4px 12px rgba(0,0,0,0.08);
   flex-shrink: 0;
 }
 
@@ -1193,35 +1202,39 @@ img {
   transform: scale(1.05);
 }
 
-/* Bordure décorative teal */
-.apercu__card-visual::before {
+/* Overlay dégradé bas de l'image */
+.apercu__card-visual::after {
   content: '';
   position: absolute;
-  inset: -3px;
-  border-radius: 20px;
-  background: linear-gradient(135deg, var(--clr-primary), var(--clr-accent));
-  z-index: -1;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background: linear-gradient(to bottom, transparent, #122b30);
+  pointer-events: none;
 }
 
 .apercu__card-body {
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  padding: 1.75rem 2rem 2rem;
+  flex: 1;
 }
 
 .apercu__card-title {
   font-family: var(--font-display);
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   font-weight: 800;
-  color: var(--clr-text);
+  color: rgba(255, 255, 255, 0.95);
   line-height: 1.25;
   letter-spacing: -0.01em;
 }
 
 .apercu__card-text {
-  font-size: 1.05rem;
-  line-height: 1.85;
-  color: var(--clr-text-muted);
+  font-size: 0.97rem;
+  line-height: 1.8;
+  color: rgba(255, 255, 255, 0.6);
   flex: 1;
 }
 
@@ -1229,11 +1242,11 @@ img {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  font-size: 1rem;
+  font-size: 0.95rem;
   font-weight: 600;
-  color: var(--clr-primary);
+  color: var(--clr-accent);
   text-decoration: none;
-  border-bottom: 2px solid rgba(0, 116, 124, 0.25);
+  border-bottom: 2px solid rgba(0, 187, 201, 0.35);
   padding-bottom: 2px;
   width: fit-content;
   margin-top: 0.25rem;
@@ -1241,17 +1254,18 @@ img {
 }
 
 .apercu__card-link:hover {
-  color: var(--clr-secondary);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.5);
   gap: 0.65rem;
 }
 
-/* ── Titre volet (DATA / CONSEIL) — taille augmentée ── */
+/* ── Titre volet (DATA / CONSEIL) ── */
 .apercu__volet-title {
   font-family: var(--font-display);
   font-size: 1rem;
   font-weight: 800;
   letter-spacing: 0.2em;
-  color: var(--clr-primary);
+  color: var(--clr-accent);
   white-space: nowrap;
   flex-shrink: 0;
 }
@@ -1275,15 +1289,13 @@ img {
     margin: 0 auto;
   }
 
-  /* Cartes services : image au-dessus sur tablette */
-  .apercu__card {
+  /* Cartes services : 2 colonnes → 1 colonne sur tablette */
+  .apercu__cards {
     grid-template-columns: 1fr;
-    gap: 2rem;
   }
 
-  .apercu__card-visual {
-    max-width: 320px;
-    margin: 0 auto;
+  .apercu__services {
+    padding: 2.5rem;
   }
 }
 
@@ -1306,20 +1318,24 @@ img {
     padding: 0 1.25rem;
   }
 
-  .apercu__card {
+  .apercu__services {
+    border-radius: 16px;
     padding: 1.75rem 1.25rem;
-    gap: 1.5rem;
   }
 
   .apercu__card-visual {
-    max-width: 260px;
+    height: 180px;
+  }
+
+  .apercu__card-body {
+    padding: 1.25rem 1.25rem 1.5rem;
   }
 
   .apercu__card-title {
-    font-size: 1.25rem;
+    font-size: 1.15rem;
   }
 
   .apercu__card-text {
-    font-size: 0.95rem;
+    font-size: 0.9rem;
   }
 }
