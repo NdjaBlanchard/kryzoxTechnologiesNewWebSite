@@ -430,6 +430,187 @@ app.get("/", (c) => {
           </div>{/* fin apercu__services */}
         </div>{/* fin apercu__inner */}
       </section>
+      {/* ===== SECTION VALEURS + SECTEURS ===== */}
+      <section id="valeurs" class="valeurs">
+        <div class="valeurs__inner">
+
+          {/* Colonne gauche — Secteurs */}
+          <div class="valeurs__sectors">
+            <p class="valeurs__sectors-intro">
+              KryzOx Technologies intervient dans de multiples secteurs d'activité,
+              notamment mais sans s'y limiter&nbsp;:
+            </p>
+            <ul class="valeurs__sectors-list">
+              {[
+                { icon: "fa-landmark", label: "Secteur Financier & Bancaire" },
+                { icon: "fa-shield-halved", label: "Assurance" },
+                { icon: "fa-tower-broadcast", label: "Télécommunications" },
+                { icon: "fa-store", label: "Commerce & Distribution" },
+                { icon: "fa-graduation-cap", label: "Enseignement Supérieur" },
+                { icon: "fa-building-columns", label: "Secteur Public" },
+                { icon: "fa-industry", label: "Mines & Industrie" },
+                { icon: "fa-heart-pulse", label: "Santé & Pharma" },
+              ].map((s) => (
+                <li class="valeurs__sector-item">
+                  <span class="valeurs__sector-icon">
+                    <i class={`fas ${s.icon}`} aria-hidden="true"></i>
+                  </span>
+                  <span class="valeurs__sector-label">{s.label}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Colonne droite — Valeurs */}
+          <div class="valeurs__values">
+            <div class="valeurs__values-header">
+              <span class="valeurs__values-eyebrow">Qui nous sommes</span>
+              <h2 class="valeurs__values-title">Nos valeurs fondamentales</h2>
+            </div>
+
+            <div class="valeurs__cards">
+
+              <div class="valeurs__card">
+                <div class="valeurs__card-icon">
+                  <i class="fas fa-handshake-angle" aria-hidden="true"></i>
+                </div>
+                <h3 class="valeurs__card-title">Excellence du Service</h3>
+                <p class="valeurs__card-text">
+                  Nous livrons des solutions de haute qualité, dans les délais,
+                  avec un accompagnement proactif à chaque étape.
+                </p>
+              </div>
+
+              <div class="valeurs__card">
+                <div class="valeurs__card-icon">
+                  <i class="fas fa-scale-balanced" aria-hidden="true"></i>
+                </div>
+                <h3 class="valeurs__card-title">Intégrité & Respect</h3>
+                <p class="valeurs__card-text">
+                  Transparence, honnêteté et éthique guident chacune de nos
+                  décisions et de nos relations client.
+                </p>
+              </div>
+
+              <div class="valeurs__card">
+                <div class="valeurs__card-icon">
+                  <i class="fas fa-people-group" aria-hidden="true"></i>
+                </div>
+                <h3 class="valeurs__card-title">Passion & Connexion</h3>
+                <p class="valeurs__card-text">
+                  Nous créons des liens durables entre les données, les équipes
+                  et les opportunités pour propulser l'Afrique digitale.
+                </p>
+              </div>
+
+              <div class="valeurs__card">
+                <div class="valeurs__card-icon">
+                  <i class="fas fa-lightbulb" aria-hidden="true"></i>
+                </div>
+                <h3 class="valeurs__card-title">Innovation Continue</h3>
+                <p class="valeurs__card-text">
+                  Nous adoptons les meilleures technologies mondiales et les
+                  adaptons aux réalités et défis du continent africain.
+                </p>
+              </div>
+
+            </div>
+
+            <div class="valeurs__values-cta">
+              <a href="#contact" class="valeurs__cta-btn">
+                En savoir plus
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                  <path d="M3 8H13M9 4L13 8L9 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      {/* ===== SECTION POSTGRESQL ===== */}
+      <section id="postgresql" class="postgres">
+
+        {/* En-tête centré */}
+        <div class="postgres__topbar">
+          <div class="postgres__topbar-line"></div>
+          <span class="postgres__topbar-label">PostgreSQL</span>
+          <div class="postgres__topbar-line"></div>
+        </div>
+
+        <div class="postgres__inner">
+
+          {/* Image gauche — mascotte */}
+          <div class="postgres__visual">
+            <div class="postgres__visual-badge">Enterprise</div>
+            <img
+              src="/static/postgres-elephant.jpg"
+              alt="Mascotte PostgreSQL — KryzOx Technologies"
+              class="postgres__img"
+            />
+            <div class="postgres__visual-glow"></div>
+          </div>
+
+          {/* Contenu droite */}
+          <div class="postgres__content">
+
+            <p class="postgres__eyebrow">Distributeur Officiel Entreprise</p>
+            <h2 class="postgres__title">
+              Expert & Distributeur Officiel de solutions{" "}
+              <span class="postgres__title-accent">PostgreSQL Enterprise</span>{" "}
+              en Afrique
+            </h2>
+            <p class="postgres__lead">
+              KryzOx Technologies est distributeur agréé de solutions PostgreSQL
+              Enterprise pour l'Afrique et le Moyen-Orient, avec une expertise
+              approfondie en migration, implémentation et optimisation de bases
+              de données critiques.
+            </p>
+
+            <h3 class="postgres__why-title">
+              <i class="fas fa-bolt" aria-hidden="true"></i>
+              Pourquoi choisir PostgreSQL ?
+            </h3>
+
+            <ul class="postgres__checklist">
+              {[
+                "Avantages économiques majeurs vs solutions propriétaires",
+                "Base de données relationnelle la plus avancée au monde",
+                "Migration facilitée depuis Oracle, SQL Server, MySQL",
+                "Garantie SLA 24h/7 — support entreprise de niveau mondial",
+                "Sécurité & conformité aux standards les plus exigeants",
+                "Haute disponibilité et réplication native",
+                "Base transactionnelle ACID — données critiques sécurisées",
+                "Déployable partout : on-premise, cloud, hybride",
+                "Prêt pour les conteneurs (Docker / Kubernetes)",
+                "Adoption rapide et courbe d'apprentissage maîtrisée",
+                "Formation et montée en compétence incluses",
+                "Communauté mondiale active et mises à jour régulières",
+              ].map((item) => (
+                <li class="postgres__check-item">
+                  <span class="postgres__check-icon">
+                    <i class="fas fa-check" aria-hidden="true"></i>
+                  </span>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+
+            <div class="postgres__ctas">
+              <a href="#contact" class="postgres__btn postgres__btn--primary">
+                <i class="fas fa-envelope" aria-hidden="true"></i>
+                Demander une démo
+              </a>
+              <a href="#contact" class="postgres__btn postgres__btn--ghost">
+                En savoir plus
+              </a>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
       <section
         id="news"
         style="height: 50vh; display:flex; align-items:center; justify-content:center; background:#f1f5f9;"
