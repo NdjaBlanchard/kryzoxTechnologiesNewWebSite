@@ -659,6 +659,93 @@ app.get("/", (c) => {
         </div>
       </section>
 
+      {/* ===== SECTION INTELLIGENCE DES DONNÉES ===== */}
+      <section id="intelligence" class="intel">
+
+        {/* Topbar — même style, couleurs adaptées au fond clair */}
+        <div class="intel__topbar">
+          <div class="intel__topbar-line"></div>
+          <span class="intel__topbar-label">Intelligence des données</span>
+          <div class="intel__topbar-line"></div>
+        </div>
+
+        <div class="intel__inner">
+
+          {/* Contenu GAUCHE */}
+          <div class="intel__content">
+
+            <p class="intel__eyebrow">Notre expertise</p>
+            <h2 class="intel__title">
+              Transformez vos données brutes en{" "}
+              <span class="intel__title-accent">décisions stratégiques</span>
+            </h2>
+            <p class="intel__lead">
+              KryzOx Technologies conçoit et déploie des écosystèmes data end-to-end —
+              des pipelines d'ingestion aux tableaux de bord décisionnels — pour faire
+              de chaque donnée un levier de compétitivité réel.
+            </p>
+
+            <h3 class="intel__why-title">
+              <i class="fas fa-chart-network" aria-hidden="true"></i>
+              Ce que nous mettons en œuvre
+            </h3>
+
+            <ul class="intel__checklist">
+              {[
+                { icon: "fa-pipe-section",   label: "Pipelines de données (ETL/ELT) robustes et scalables" },
+                { icon: "fa-chart-bar",      label: "Business Intelligence & reporting temps réel" },
+                { icon: "fa-eye",            label: "Visualisation avancée (Tableau, Power BI, Metabase)" },
+                { icon: "fa-brain",          label: "Intelligence Artificielle & Machine Learning appliqués" },
+                { icon: "fa-magnifying-glass-chart", label: "Analytique prédictive et prescriptive" },
+                { icon: "fa-warehouse",      label: "Data Warehouse & Data Lakehouse modernes" },
+                { icon: "fa-shield-check",   label: "Gouvernance et qualité des données (Data Quality)" },
+                { icon: "fa-gear",           label: "DataOps & automatisation des flux de données" },
+                { icon: "fa-map-location",   label: "Géo-analytique et données spatiales" },
+                { icon: "fa-users-gear",     label: "Self-service analytics pour vos équipes métiers" },
+              ].map((item) => (
+                <li class="intel__check-item">
+                  <span class="intel__check-icon">
+                    <i class={`fas ${item.icon}`} aria-hidden="true"></i>
+                  </span>
+                  <span>{item.label}</span>
+                </li>
+              ))}
+            </ul>
+
+            <div class="intel__ctas">
+              <a href="#contact" class="intel__btn intel__btn--primary">
+                <i class="fas fa-envelope" aria-hidden="true"></i>
+                Parler à un expert
+              </a>
+              <a href="#services" class="intel__btn intel__btn--ghost">
+                Voir tous nos services
+              </a>
+            </div>
+
+          </div>
+
+          {/* Visuel DROITE */}
+          <div class="intel__visual">
+            <div class="intel__visual-badge">Data &amp; IA</div>
+            <img
+              src="/static/intel-visual.jpg"
+              alt="Intelligence des données — KryzOx Technologies"
+              class="intel__img"
+            />
+            {/* Métriques flottantes */}
+            <div class="intel__metric intel__metric--top">
+              <span class="intel__metric-value">+340%</span>
+              <span class="intel__metric-label">ROI moyen constaté</span>
+            </div>
+            <div class="intel__metric intel__metric--bottom">
+              <span class="intel__metric-value">Temps réel</span>
+              <span class="intel__metric-label">Insights actionnables</span>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
       <section
         id="news"
         style="height: 50vh; display:flex; align-items:center; justify-content:center; background:#f1f5f9;"
