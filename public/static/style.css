@@ -1109,168 +1109,7 @@ img {
   gap: 0.8rem;
 }
 
-/* ── Séparateur horizontal ── */
-.apercu__divider {
-  border: none;
-  border-top: 1px solid rgba(0, 116, 124, 0.12);
-  margin: 0;
-}
-
-/* ── Sous-section Services — fond sombre ── */
-.apercu__services {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-  background: #0d1f22;
-  border-radius: 24px;
-  padding: 3.5rem;
-  margin-top: 0.5rem;
-}
-
-/* ── Volet (DATA / CONSEIL ET FORMATION) ── */
-.apercu__volet {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-  padding-bottom: 3rem;
-}
-
-.apercu__volet + .apercu__volet {
-  padding-top: 3rem;
-  border-top: 1px solid rgba(0, 187, 201, 0.15);
-}
-
-.apercu__volet-header {
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
-}
-
-.apercu__volet-line {
-  flex: 1;
-  height: 2px;
-  background: linear-gradient(90deg, var(--clr-accent) 0%, rgba(0, 187, 201, 0.1) 100%);
-  border-radius: 2px;
-}
-
-/* ── Grille 2 colonnes ── */
-.apercu__cards {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1.5rem;
-}
-
-/* ── Carte service — layout image haut / contenu bas ── */
-.apercu__card {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-  padding: 0;
-  background: #122b30;
-  border-radius: 20px;
-  border: 1px solid rgba(0, 187, 201, 0.12);
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
-  overflow: hidden;
-  transition: box-shadow var(--transition-med), transform var(--transition-med), border-color var(--transition-med);
-}
-
-.apercu__card:hover {
-  box-shadow: 0 12px 40px rgba(0, 187, 201, 0.2), 0 4px 16px rgba(0, 0, 0, 0.4);
-  transform: translateY(-4px);
-  border-color: rgba(0, 187, 201, 0.35);
-}
-
-/* Image haut de la carte */
-.apercu__card-visual {
-  position: relative;
-  width: 100%;
-  height: 220px;
-  border-radius: 0;
-  overflow: hidden;
-  flex-shrink: 0;
-}
-
-.apercu__card-visual img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-  transition: transform 0.5s ease;
-}
-
-.apercu__card:hover .apercu__card-visual img {
-  transform: scale(1.05);
-}
-
-/* Overlay dégradé bas de l'image */
-.apercu__card-visual::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 60px;
-  background: linear-gradient(to bottom, transparent, #122b30);
-  pointer-events: none;
-}
-
-.apercu__card-body {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  padding: 1.75rem 2rem 2rem;
-  flex: 1;
-}
-
-.apercu__card-title {
-  font-family: var(--font-display);
-  font-size: 1.3rem;
-  font-weight: 800;
-  color: rgba(255, 255, 255, 0.95);
-  line-height: 1.25;
-  letter-spacing: -0.01em;
-}
-
-.apercu__card-text {
-  font-size: 0.97rem;
-  line-height: 1.8;
-  color: rgba(255, 255, 255, 0.6);
-  flex: 1;
-}
-
-.apercu__card-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 0.95rem;
-  font-weight: 600;
-  color: var(--clr-accent);
-  text-decoration: none;
-  border-bottom: 2px solid rgba(0, 187, 201, 0.35);
-  padding-bottom: 2px;
-  width: fit-content;
-  margin-top: 0.25rem;
-  transition: color var(--transition-fast), border-color var(--transition-fast), gap var(--transition-fast);
-}
-
-.apercu__card-link:hover {
-  color: #ffffff;
-  border-color: rgba(255, 255, 255, 0.5);
-  gap: 0.65rem;
-}
-
-/* ── Titre volet (DATA / CONSEIL) ── */
-.apercu__volet-title {
-  font-family: var(--font-display);
-  font-size: 1rem;
-  font-weight: 800;
-  letter-spacing: 0.2em;
-  color: var(--clr-accent);
-  white-space: nowrap;
-  flex-shrink: 0;
-}
-
-/* ── Responsive ── */
+/* ── Responsive aperçu (À propos seul) ── */
 @media (max-width: 1100px) {
   .apercu__about {
     grid-template-columns: 320px 1fr;
@@ -1288,47 +1127,17 @@ img {
     max-width: 380px;
     margin: 0 auto;
   }
-
-  /* Cartes services : 2 colonnes → 1 colonne sur tablette */
-  .apercu__cards {
-    grid-template-columns: 1fr;
-  }
-
-  .apercu__services {
-    padding: 2.5rem;
-  }
 }
 
 @media (max-width: 768px) {
   .apercu {
     padding: 4rem 0;
   }
-
-  .apercu__inner {
-    gap: 3.5rem;
-  }
-
-  .apercu__volet-title {
-    font-size: 0.85rem;
-  }
 }
 
 @media (max-width: 640px) {
   .apercu__inner {
     padding: 0 1.25rem;
-  }
-
-  .apercu__services {
-    border-radius: 16px;
-    padding: 1.75rem 1.25rem;
-  }
-
-  .apercu__card-visual {
-    height: 180px;
-  }
-
-  .apercu__card-body {
-    padding: 1.25rem 1.25rem 1.5rem;
   }
 
   .apercu__card-title {
@@ -1546,6 +1355,355 @@ img {
   background: var(--clr-primary);
   transform: translateY(-2px);
   box-shadow: 0 8px 20px rgba(0,116,124,0.35);
+}
+
+/* ============================================================
+   SECTION SERVICES — style aligné sur #postgresql
+   ============================================================ */
+
+.svc {
+  background: #0d1f22;
+  padding: 0 0 7rem;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Déco fond */
+.svc::before {
+  content: '';
+  position: absolute;
+  top: 30%;
+  right: -180px;
+  width: 550px;
+  height: 550px;
+  background: radial-gradient(circle, rgba(0,187,201,0.06) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+.svc::after {
+  content: '';
+  position: absolute;
+  bottom: 15%;
+  left: -120px;
+  width: 450px;
+  height: 450px;
+  background: radial-gradient(circle, rgba(0,116,124,0.07) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+/* ── Topbar — identique à .postgres__topbar ── */
+.svc__topbar {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 3.5rem 4rem 3rem;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.svc__topbar-line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(0,187,201,0.4), transparent);
+}
+
+.svc__topbar-label {
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  font-weight: 800;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.5);
+  white-space: nowrap;
+}
+
+/* ── Contenu principal ── */
+.svc__inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Intro centrée ── */
+.svc__intro {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+.svc__intro-eyebrow {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--clr-accent);
+}
+
+.svc__intro-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
+  font-weight: 800;
+  color: rgba(255,255,255,0.95);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+.svc__intro-accent {
+  color: var(--clr-accent);
+}
+
+.svc__intro-lead {
+  font-size: 1rem;
+  line-height: 1.8;
+  color: rgba(255,255,255,0.58);
+}
+
+/* ── Volet (DATA / CONSEIL) ── */
+.svc__volet {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.svc__volet-header {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.svc__volet-line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(0,187,201,0.35), transparent);
+}
+
+.svc__volet-title {
+  font-family: var(--font-display);
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* ── Grille cartes 2 colonnes ── */
+.svc__cards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
+/* ── Carte service ── */
+.svc__card {
+  display: flex;
+  flex-direction: column;
+  background: #122b30;
+  border-radius: 20px;
+  border: 1px solid rgba(0,187,201,0.12);
+  overflow: hidden;
+  transition: transform var(--transition-med), box-shadow var(--transition-med), border-color var(--transition-med);
+}
+
+.svc__card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 16px 48px rgba(0,187,201,0.18), 0 6px 20px rgba(0,0,0,0.4);
+  border-color: rgba(0,187,201,0.32);
+}
+
+/* Image haut */
+.svc__card-visual {
+  position: relative;
+  width: 100%;
+  height: 230px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.svc__card-visual img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.6s ease;
+}
+
+.svc__card:hover .svc__card-visual img {
+  transform: scale(1.07);
+}
+
+/* Overlay dégradé bas image */
+.svc__card-visual-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    transparent 40%,
+    rgba(18,43,48,0.85) 100%
+  );
+  pointer-events: none;
+}
+
+/* Badge icône coin haut droite */
+.svc__card-badge {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: rgba(0,187,201,0.18);
+  border: 1px solid rgba(0,187,201,0.35);
+  color: var(--clr-accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  backdrop-filter: blur(6px);
+  transition: background var(--transition-fast);
+}
+
+.svc__card:hover .svc__card-badge {
+  background: rgba(0,187,201,0.32);
+}
+
+/* Corps texte */
+.svc__card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  padding: 1.75rem 2rem 2rem;
+  flex: 1;
+}
+
+.svc__card-title {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: rgba(255,255,255,0.95);
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+}
+
+.svc__card-text {
+  font-size: 0.93rem;
+  line-height: 1.8;
+  color: rgba(255,255,255,0.58);
+  flex: 1;
+}
+
+.svc__card-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--clr-accent);
+  text-decoration: none;
+  border-bottom: 1.5px solid rgba(0,187,201,0.35);
+  padding-bottom: 2px;
+  width: fit-content;
+  margin-top: 0.25rem;
+  transition: color var(--transition-fast), border-color var(--transition-fast), gap var(--transition-fast);
+}
+
+.svc__card-link:hover {
+  color: #fff;
+  border-color: rgba(255,255,255,0.5);
+  gap: 0.7rem;
+}
+
+/* ── CTA global bas de section ── */
+.svc__cta-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+  padding-top: 1rem;
+}
+
+.svc__cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: var(--clr-accent);
+  color: #fff;
+  font-size: 0.95rem;
+  font-weight: 700;
+  padding: 0.9rem 1.85rem;
+  border-radius: 10px;
+  text-decoration: none;
+  box-shadow: 0 6px 20px rgba(0,187,201,0.3);
+  transition: all var(--transition-fast);
+}
+
+.svc__cta-btn:hover {
+  background: var(--clr-primary);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(0,116,124,0.4);
+}
+
+.svc__cta-ghost {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: rgba(255,255,255,0.6);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(255,255,255,0.2);
+  padding-bottom: 2px;
+  transition: color var(--transition-fast), border-color var(--transition-fast);
+}
+
+.svc__cta-ghost:hover {
+  color: var(--clr-accent);
+  border-color: var(--clr-accent);
+}
+
+/* ── Responsive services ── */
+@media (max-width: 900px) {
+  .svc__cards {
+    grid-template-columns: 1fr;
+  }
+  .svc__topbar {
+    padding: 3rem 2rem 2.5rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .svc {
+    padding: 0 0 5rem;
+  }
+  .svc__inner {
+    padding: 0 1.25rem;
+    gap: 3rem;
+  }
+  .svc__card-visual {
+    height: 185px;
+  }
+  .svc__card-body {
+    padding: 1.25rem 1.25rem 1.5rem;
+  }
+  .svc__cta-wrap {
+    flex-direction: column;
+  }
+  .svc__cta-btn,
+  .svc__cta-ghost {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+  }
 }
 
 /* ── Responsive valeurs ── */

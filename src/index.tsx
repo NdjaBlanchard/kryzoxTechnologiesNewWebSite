@@ -280,11 +280,9 @@ app.get("/", (c) => {
         </div>
       </section>
 
-      {/* ===== SECTION APERÇU : À PROPOS + SERVICES ===== */}
+      {/* ===== SECTION APERÇU : À PROPOS ===== */}
       <section id="apercu" class="apercu">
         <div class="apercu__inner">
-
-          {/* ── Sous-section À propos ── */}
           <div id="apropos" class="apercu__about">
 
             {/* Image gauche */}
@@ -316,119 +314,169 @@ app.get("/", (c) => {
             </div>
 
           </div>
+        </div>
+      </section>
 
-          {/* ── Séparateur ── */}
-          <hr class="apercu__divider" />
+      {/* ===== SECTION SERVICES ===== */}
+      <section id="services" class="svc">
 
-          {/* ── Sous-section Services ── */}
-          <div id="services" class="apercu__services">
+        {/* Topbar — même style que #postgresql */}
+        <div class="svc__topbar">
+          <div class="svc__topbar-line"></div>
+          <span class="svc__topbar-label">Nos Services</span>
+          <div class="svc__topbar-line"></div>
+        </div>
 
-            {/* ══ Volet DATA ══ */}
-            <div class="apercu__volet">
-              <div class="apercu__volet-header">
-                <h3 class="apercu__volet-title">DATA</h3>
-                <div class="apercu__volet-line" aria-hidden="true"></div>
-              </div>
+        <div class="svc__inner">
 
-              <div class="apercu__cards">
+          {/* Intro centrée */}
+          <div class="svc__intro">
+            <span class="svc__intro-eyebrow">Ce que nous faisons</span>
+            <h2 class="svc__intro-title">
+              Des expertises data pensées pour{" "}
+              <span class="svc__intro-accent">l'Afrique digitale</span>
+            </h2>
+            <p class="svc__intro-lead">
+              De la gestion de bases de données critiques à la formation de vos équipes,
+              nos offres couvrent l'ensemble de la chaîne de valeur de la donnée.
+            </p>
+          </div>
 
-                {/* Card — Bases de données */}
-                <article class="apercu__card">
-                  <div class="apercu__card-visual">
-                    <img src="/static/svc-database.jpg" alt="Bases de données" />
-                  </div>
-                  <div class="apercu__card-body">
-                    <h4 class="apercu__card-title">Bases de données</h4>
-                    <p class="apercu__card-text">
-                      Conception, administration et optimisation de bases de données Oracle &amp; PostgreSQL.
-                      Haute disponibilité, sécurité renforcée et performance garanties pour vos environnements critiques.
-                    </p>
-                    <a href="#contact" class="apercu__card-link">
-                      En savoir plus
-                      <svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                        <path d="M3 8H13M9 4L13 8L9 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                      </svg>
-                    </a>
-                  </div>
-                </article>
-
-                {/* Card — Intelligence des données */}
-                <article class="apercu__card">
-                  <div class="apercu__card-visual">
-                    <img src="/static/svc-intelligence.jpg" alt="Intelligence des données" />
-                  </div>
-                  <div class="apercu__card-body">
-                    <h4 class="apercu__card-title">Intelligence des données</h4>
-                    <p class="apercu__card-text">
-                      Pipelines de données, BI, visualisation et IA appliquée pour transformer vos données brutes
-                      en insights actionnables et en avantages compétitifs concrets.
-                    </p>
-                    <a href="#contact" class="apercu__card-link">
-                      En savoir plus
-                      <svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                        <path d="M3 8H13M9 4L13 8L9 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                      </svg>
-                    </a>
-                  </div>
-                </article>
-
-              </div>
+          {/* ══ Volet DATA ══ */}
+          <div class="svc__volet">
+            <div class="svc__volet-header">
+              <div class="svc__volet-line"></div>
+              <h3 class="svc__volet-title">DATA</h3>
+              <div class="svc__volet-line"></div>
             </div>
 
-            {/* ══ Volet CONSEIL ET FORMATION ══ */}
-            <div class="apercu__volet">
-              <div class="apercu__volet-header">
-                <h3 class="apercu__volet-title">CONSEIL ET FORMATION</h3>
-                <div class="apercu__volet-line" aria-hidden="true"></div>
-              </div>
+            <div class="svc__cards">
 
-              <div class="apercu__cards">
+              {/* Card — Bases de données */}
+              <article class="svc__card">
+                <div class="svc__card-visual">
+                  <img src="/static/svc-database.jpg" alt="Bases de données" />
+                  <div class="svc__card-visual-overlay"></div>
+                  <span class="svc__card-badge">
+                    <i class="fas fa-database" aria-hidden="true"></i>
+                  </span>
+                </div>
+                <div class="svc__card-body">
+                  <h4 class="svc__card-title">Bases de données</h4>
+                  <p class="svc__card-text">
+                    Conception, administration et optimisation Oracle &amp; PostgreSQL.
+                    Haute disponibilité, sécurité renforcée et performance garanties pour
+                    vos environnements critiques.
+                  </p>
+                  <a href="#contact" class="svc__card-link">
+                    En savoir plus
+                    <svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                      <path d="M3 8H13M9 4L13 8L9 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </a>
+                </div>
+              </article>
 
-                {/* Card — Stratégie data */}
-                <article class="apercu__card">
-                  <div class="apercu__card-visual">
-                    <img src="/static/svc-strategie.jpg" alt="Stratégie data" />
-                  </div>
-                  <div class="apercu__card-body">
-                    <h4 class="apercu__card-title">Stratégie data</h4>
-                    <p class="apercu__card-text">
-                      Feuilles de route data, gouvernance, operating model Digital Factory et acculturation.
-                      Nous définissons avec vous le chemin le plus court vers la maturité data.
-                    </p>
-                    <a href="#contact" class="apercu__card-link">
-                      En savoir plus
-                      <svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                        <path d="M3 8H13M9 4L13 8L9 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                      </svg>
-                    </a>
-                  </div>
-                </article>
+              {/* Card — Intelligence des données */}
+              <article class="svc__card">
+                <div class="svc__card-visual">
+                  <img src="/static/svc-intelligence.jpg" alt="Intelligence des données" />
+                  <div class="svc__card-visual-overlay"></div>
+                  <span class="svc__card-badge">
+                    <i class="fas fa-brain" aria-hidden="true"></i>
+                  </span>
+                </div>
+                <div class="svc__card-body">
+                  <h4 class="svc__card-title">Intelligence des données</h4>
+                  <p class="svc__card-text">
+                    Pipelines de données, BI, visualisation et IA appliquée pour transformer
+                    vos données brutes en insights actionnables et avantages compétitifs concrets.
+                  </p>
+                  <a href="#contact" class="svc__card-link">
+                    En savoir plus
+                    <svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                      <path d="M3 8H13M9 4L13 8L9 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </a>
+                </div>
+              </article>
 
-                {/* Card — Formation */}
-                <article class="apercu__card">
-                  <div class="apercu__card-visual">
-                    <img src="/static/svc-formation.jpg" alt="Formation" />
-                  </div>
-                  <div class="apercu__card-body">
-                    <h4 class="apercu__card-title">Formation</h4>
-                    <p class="apercu__card-text">
-                      Programmes sur mesure pour monter en compétence vos équipes&nbsp;: SQL avancé,
-                      data engineering, BI et culture data. De l'initiation au coaching expert.
-                    </p>
-                    <a href="#contact" class="apercu__card-link">
-                      En savoir plus
-                      <svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                        <path d="M3 8H13M9 4L13 8L9 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                      </svg>
-                    </a>
-                  </div>
-                </article>
+            </div>
+          </div>
 
-              </div>
+          {/* ══ Volet CONSEIL ET FORMATION ══ */}
+          <div class="svc__volet">
+            <div class="svc__volet-header">
+              <div class="svc__volet-line"></div>
+              <h3 class="svc__volet-title">Conseil &amp; Formation</h3>
+              <div class="svc__volet-line"></div>
             </div>
 
-          </div>{/* fin apercu__services */}
-        </div>{/* fin apercu__inner */}
+            <div class="svc__cards">
+
+              {/* Card — Stratégie data */}
+              <article class="svc__card">
+                <div class="svc__card-visual">
+                  <img src="/static/svc-strategie.jpg" alt="Stratégie data" />
+                  <div class="svc__card-visual-overlay"></div>
+                  <span class="svc__card-badge">
+                    <i class="fas fa-chess" aria-hidden="true"></i>
+                  </span>
+                </div>
+                <div class="svc__card-body">
+                  <h4 class="svc__card-title">Stratégie data</h4>
+                  <p class="svc__card-text">
+                    Feuilles de route data, gouvernance, operating model Digital Factory et
+                    acculturation. Le chemin le plus court vers votre maturité data.
+                  </p>
+                  <a href="#contact" class="svc__card-link">
+                    En savoir plus
+                    <svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                      <path d="M3 8H13M9 4L13 8L9 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </a>
+                </div>
+              </article>
+
+              {/* Card — Formation */}
+              <article class="svc__card">
+                <div class="svc__card-visual">
+                  <img src="/static/svc-formation.jpg" alt="Formation" />
+                  <div class="svc__card-visual-overlay"></div>
+                  <span class="svc__card-badge">
+                    <i class="fas fa-graduation-cap" aria-hidden="true"></i>
+                  </span>
+                </div>
+                <div class="svc__card-body">
+                  <h4 class="svc__card-title">Formation</h4>
+                  <p class="svc__card-text">
+                    Programmes sur mesure&nbsp;: SQL avancé, data engineering, BI et culture data.
+                    De l'initiation au coaching expert pour vos équipes.
+                  </p>
+                  <a href="#contact" class="svc__card-link">
+                    En savoir plus
+                    <svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                      <path d="M3 8H13M9 4L13 8L9 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </a>
+                </div>
+              </article>
+
+            </div>
+          </div>
+
+          {/* CTA global */}
+          <div class="svc__cta-wrap">
+            <a href="#contact" class="svc__cta-btn">
+              <i class="fas fa-envelope" aria-hidden="true"></i>
+              Discuter de votre projet
+            </a>
+            <a href="#postgresql" class="svc__cta-ghost">
+              Découvrir notre expertise PostgreSQL
+            </a>
+          </div>
+
+        </div>
       </section>
       {/* ===== SECTION VALEURS + SECTEURS ===== */}
       <section id="valeurs" class="valeurs">
