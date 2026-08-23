@@ -746,6 +746,119 @@ app.get("/", (c) => {
         </div>
       </section>
 
+      {/* ===== SECTION STRATÉGIE DATA ===== */}
+      <section id="strategie" class="strat">
+
+        {/* Topbar */}
+        <div class="strat__topbar">
+          <div class="strat__topbar-line"></div>
+          <span class="strat__topbar-label">Stratégie Data</span>
+          <div class="strat__topbar-line"></div>
+        </div>
+
+        <div class="strat__inner">
+
+          {/* Image GAUCHE */}
+          <div class="strat__visual">
+            <div class="strat__visual-badge">Advisory</div>
+            <img
+              src="/static/strat-visual.jpg"
+              alt="Stratégie Data — KryzOx Technologies"
+              class="strat__img"
+            />
+            {/* Métriques flottantes */}
+            <div class="strat__metric strat__metric--top">
+              <span class="strat__metric-value">+85%</span>
+              <span class="strat__metric-label">Maturité data en 12 mois</span>
+            </div>
+            <div class="strat__metric strat__metric--bottom">
+              <i class="fas fa-road strat__metric-ico" aria-hidden="true"></i>
+              <span class="strat__metric-label">Feuille de route sur-mesure</span>
+            </div>
+          </div>
+
+          {/* Contenu DROITE */}
+          <div class="strat__content">
+
+            <p class="strat__eyebrow">Notre expertise conseil</p>
+            <h2 class="strat__title">
+              Une feuille de route data{" "}
+              <span class="strat__title-accent">claire, réaliste et actionnable</span>
+            </h2>
+            <p class="strat__lead">
+              KryzOx Technologies vous accompagne dans la définition et l'exécution
+              de votre stratégie data — de l'audit de maturité à l'operating model
+              Digital Factory, en passant par la gouvernance et l'acculturation de vos équipes.
+            </p>
+
+            {/* Phases / processus */}
+            <div class="strat__phases">
+              <div class="strat__phase">
+                <span class="strat__phase-num">01</span>
+                <div class="strat__phase-body">
+                  <h4 class="strat__phase-title">Audit de maturité data</h4>
+                  <p class="strat__phase-text">
+                    Évaluation 360° de votre patrimoine data, de vos usages, de votre organisation
+                    et de vos outils existants. Identification des gaps et des quick wins.
+                  </p>
+                </div>
+              </div>
+              <div class="strat__phase">
+                <span class="strat__phase-num">02</span>
+                <div class="strat__phase-body">
+                  <h4 class="strat__phase-title">Vision & feuille de route</h4>
+                  <p class="strat__phase-text">
+                    Co-construction d'une vision data alignée sur vos enjeux business.
+                    Priorisation des chantiers, jalons et indicateurs de succès.
+                  </p>
+                </div>
+              </div>
+              <div class="strat__phase">
+                <span class="strat__phase-num">03</span>
+                <div class="strat__phase-body">
+                  <h4 class="strat__phase-title">Gouvernance & organisation</h4>
+                  <p class="strat__phase-text">
+                    Mise en place du Data Office, des rôles (CDO, Data Stewards, Engineers),
+                    des politiques de qualité et de sécurité des données.
+                  </p>
+                </div>
+              </div>
+              <div class="strat__phase">
+                <span class="strat__phase-num">04</span>
+                <div class="strat__phase-body">
+                  <h4 class="strat__phase-title">Operating model Digital Factory</h4>
+                  <p class="strat__phase-text">
+                    Déploiement d'un modèle opérationnel agile pour produire, valoriser et
+                    itérer en continu sur vos actifs data au rythme du business.
+                  </p>
+                </div>
+              </div>
+              <div class="strat__phase">
+                <span class="strat__phase-num">05</span>
+                <div class="strat__phase-body">
+                  <h4 class="strat__phase-title">Acculturation & change management</h4>
+                  <p class="strat__phase-text">
+                    Programme d'accompagnement au changement pour ancrer la culture data
+                    à tous les niveaux de l'organisation — du COMEX aux équipes terrain.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="strat__ctas">
+              <a href="#contact" class="strat__btn strat__btn--primary">
+                <i class="fas fa-calendar-check" aria-hidden="true"></i>
+                Demander un audit gratuit
+              </a>
+              <a href="#services" class="strat__btn strat__btn--ghost">
+                Tous nos services
+              </a>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
       <section
         id="news"
         style="height: 50vh; display:flex; align-items:center; justify-content:center; background:#f1f5f9;"
