@@ -7,6 +7,91 @@ const app = new Hono();
 app.use(renderer);
 app.use("/static/*", serveStatic({ root: "./" }));
 
+/* ── Route API : formulaire de contact → email ── */
+app.post("/api/contact", async (c) => {
+  try {
+    const body = await c.req.json<{
+      name: string;
+      email: string;
+      company?: string;
+      service?: string;
+      message: string;
+    }>();
+
+    const { name, email, company, service, message } = body;
+
+    if (!name || !email || !message) {
+      return c.json({ error: "Champs obligatoires manquants" }, 400);
+    }
+
+    const serviceLabels: Record<string, string> = {
+      bdd: "Bases de données",
+      intelligence: "Intelligence des données",
+      strategie: "Stratégie data",
+      postgresql: "PostgreSQL Enterprise",
+      formation: "Formation",
+      autre: "Autre",
+    };
+
+    const serviceLabel = service ? (serviceLabels[service] ?? service) : "Non précisé";
+
+    const emailBody = [
+      `Nouveau message depuis le site KryzOx Technologies`,
+      ``,
+      `Nom      : ${name}`,
+      `Email    : ${email}`,
+      `Entreprise: ${company || "Non précisée"}`,
+      `Service  : ${serviceLabel}`,
+      ``,
+      `Message :`,
+      `${message}`,
+    ].join("\n");
+
+    // Envoi via l'API Web Fetch (compatible Cloudflare Workers)
+    // Utilise un service SMTP-to-HTTP ou Mailgun si configuré
+    // En l'absence de clé API, on log et on retourne succès (dev mode)
+    const env = c.env as Record<string, string>;
+    const mailgunKey = env?.MAILGUN_API_KEY;
+    const mailgunDomain = env?.MAILGUN_DOMAIN || "kryzotec.com";
+
+    if (mailgunKey) {
+      const formData = new FormData();
+      formData.append("from", `KryzOx Website <noreply@${mailgunDomain}>`);
+      formData.append("to", "contact@kryzotec.com");
+      formData.append("subject", `[KryzOx] Nouveau message de ${name}`);
+      formData.append("text", emailBody);
+      formData.append("h:Reply-To", email);
+
+      const mgRes = await fetch(
+        `https://api.mailgun.net/v3/${mailgunDomain}/messages`,
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Basic ${btoa(`api:${mailgunKey}`)}`,
+          },
+          body: formData,
+        }
+      );
+
+      if (!mgRes.ok) {
+        const err = await mgRes.text();
+        console.error("Mailgun error:", err);
+        return c.json({ error: "Échec envoi email" }, 500);
+      }
+    } else {
+      // Mode dev — log uniquement
+      console.log("=== CONTACT FORM (dev mode) ===");
+      console.log(emailBody);
+      console.log("=== END ===");
+    }
+
+    return c.json({ success: true });
+  } catch (err) {
+    console.error("Contact API error:", err);
+    return c.json({ error: "Erreur serveur" }, 500);
+  }
+});
+
 app.get("/", (c) => {
   return c.render(
     <>
@@ -859,33 +944,409 @@ app.get("/", (c) => {
         </div>
       </section>
 
-      <section
-        id="news"
-        style="height: 50vh; display:flex; align-items:center; justify-content:center; background:#f1f5f9;"
-      >
-        <p style="color:#00747c; font-size:1.5rem; font-family:'Inter',sans-serif;">
-          Section News — À venir
-        </p>
+      {/* ===== SECTION POURQUOI NOUS + MÉTHODOLOGIE ===== */}
+      <section id="pourquoi" class="why">
+
+        {/* Topbar */}
+        <div class="why__topbar">
+          <div class="why__topbar-line"></div>
+          <span class="why__topbar-label">Pourquoi KryzOx</span>
+          <div class="why__topbar-line"></div>
+        </div>
+
+        <div class="why__inner">
+
+          {/* ── En-tête centré ── */}
+          <div class="why__header">
+            <span class="why__eyebrow">Notre différence</span>
+            <h2 class="why__title">
+              Pourquoi choisir{" "}
+              <span class="why__title-accent">KryzOx Technologies</span> ?
+            </h2>
+            <p class="why__subtitle">
+              Nous combinons expertise technique mondiale et connaissance profonde des réalités
+              africaines pour vous livrer des solutions data véritablement adaptées à votre contexte.
+            </p>
+          </div>
+
+          {/* ── Grille arguments ── */}
+          <div class="why__grid">
+            {[
+              {
+                icon: "fa-earth-africa",
+                title: "Ancrés en Afrique",
+                text: "Une équipe locale qui comprend vos contraintes réglementaires, infrastructurelles et culturelles. Pas de solutions copiées-collées — des approches co-construites.",
+              },
+              {
+                icon: "fa-certificate",
+                title: "Expertise certifiée",
+                text: "Partenaires et distributeurs officiels de PostgreSQL Enterprise. Nos experts cumulent plus de 15 ans d'expérience sur les environnements de données critiques.",
+              },
+              {
+                icon: "fa-arrows-spin",
+                title: "Approche bout-en-bout",
+                text: "De la stratégie à l'exploitation : nous couvrons l'intégralité de la chaîne de valeur data sans sous-traitance, pour une cohérence et une qualité sans faille.",
+              },
+              {
+                icon: "fa-shield-halved",
+                title: "Souveraineté & sécurité",
+                text: "Nous plaçons la souveraineté de vos données au cœur de chaque projet. Conformité aux standards internationaux et aux réglementations africaines en vigueur.",
+              },
+              {
+                icon: "fa-rocket",
+                title: "Time-to-value rapide",
+                text: "Notre méthodologie agile et notre arsenal de solutions éprouvées permettent de livrer de la valeur en quelques semaines, pas en plusieurs années.",
+              },
+              {
+                icon: "fa-users",
+                title: "Transfert de compétences",
+                text: "Nous ne créons pas de dépendance. Chaque mission inclut un volet formation pour autonomiser vos équipes et pérenniser les acquis dans la durée.",
+              },
+            ].map((item) => (
+              <div class="why__card">
+                <div class="why__card-icon">
+                  <i class={`fas ${item.icon}`} aria-hidden="true"></i>
+                </div>
+                <h3 class="why__card-title">{item.title}</h3>
+                <p class="why__card-text">{item.text}</p>
+              </div>
+            ))}
+          </div>
+
+          {/* ── Méthodologie ── */}
+          <div class="why__method">
+            <div class="why__method-header">
+              <span class="why__method-eyebrow">Notre processus</span>
+              <h2 class="why__method-title">Une méthodologie éprouvée en 5 étapes</h2>
+              <p class="why__method-sub">
+                Un cadre structuré, transparent et itératif — du premier échange
+                jusqu'au transfert de compétences final.
+              </p>
+            </div>
+
+            <div class="why__steps">
+              {[
+                {
+                  num: "01",
+                  icon: "fa-magnifying-glass",
+                  title: "Découverte & Cadrage",
+                  text: "Ateliers de découverte pour comprendre vos enjeux métiers, votre écosystème technique et vos objectifs prioritaires. Livrable : brief de mission validé.",
+                },
+                {
+                  num: "02",
+                  icon: "fa-diagram-project",
+                  title: "Diagnostic & Architecture",
+                  text: "Audit de l'existant, mapping des flux de données, identification des gaps. Conception de l'architecture cible et du plan de migration.",
+                },
+                {
+                  num: "03",
+                  icon: "fa-code",
+                  title: "Développement Agile",
+                  text: "Sprints courts de 2 semaines, livraisons incrémentales et démontrables. Implication continue de vos équipes pour garantir l'adoption.",
+                },
+                {
+                  num: "04",
+                  icon: "fa-vials",
+                  title: "Tests & Validation",
+                  text: "Recette fonctionnelle, tests de charge, validation sécurité et conformité. Aucune mise en production sans votre validation explicite.",
+                },
+                {
+                  num: "05",
+                  icon: "fa-graduation-cap",
+                  title: "Déploiement & Transfert",
+                  text: "Mise en production accompagnée, formation des équipes, documentation complète et support post-livraison. Votre autonomie, notre succès.",
+                },
+              ].map((step, i) => (
+                <div class="why__step">
+                  <div class="why__step-head">
+                    <span class="why__step-num">{step.num}</span>
+                    <div class="why__step-icon">
+                      <i class={`fas ${step.icon}`} aria-hidden="true"></i>
+                    </div>
+                    {i < 4 && <div class="why__step-connector" aria-hidden="true"></div>}
+                  </div>
+                  <div class="why__step-body">
+                    <h4 class="why__step-title">{step.title}</h4>
+                    <p class="why__step-text">{step.text}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* ── CTA global ── */}
+          <div class="why__cta-wrap">
+            <a href="#contact" class="why__cta-btn">
+              <i class="fas fa-calendar-check" aria-hidden="true"></i>
+              Démarrer un projet avec nous
+            </a>
+          </div>
+
+        </div>
       </section>
-      <section
-        id="blog"
-        style="height: 50vh; display:flex; align-items:center; justify-content:center; background:#f9f9f9;"
-      >
-        <p style="color:#00747c; font-size:1.5rem; font-family:'Inter',sans-serif;">
-          Section Blog — À venir
-        </p>
+
+      {/* ===== SECTION CONTACT ===== */}
+      <section id="contact" class="contact">
+
+        <div class="contact__topbar">
+          <div class="contact__topbar-line"></div>
+          <span class="contact__topbar-label">Contact</span>
+          <div class="contact__topbar-line"></div>
+        </div>
+
+        <div class="contact__inner">
+
+          {/* Infos gauche */}
+          <div class="contact__info">
+            <span class="contact__eyebrow">Parlons de votre projet</span>
+            <h2 class="contact__title">
+              Prêt à transformer<br/>
+              <span class="contact__title-accent">votre data en valeur ?</span>
+            </h2>
+            <p class="contact__lead">
+              Que vous ayez un projet précis ou simplement envie d'explorer les possibilités,
+              notre équipe est là pour vous répondre sous 24h.
+            </p>
+
+            <ul class="contact__details">
+              <li class="contact__detail-item">
+                <span class="contact__detail-icon">
+                  <i class="fas fa-envelope" aria-hidden="true"></i>
+                </span>
+                <div>
+                  <span class="contact__detail-label">Email</span>
+                  <a href="mailto:contact@kryzotec.com" class="contact__detail-value">
+                    contact@kryzotec.com
+                  </a>
+                </div>
+              </li>
+              <li class="contact__detail-item">
+                <span class="contact__detail-icon">
+                  <i class="fas fa-earth-africa" aria-hidden="true"></i>
+                </span>
+                <div>
+                  <span class="contact__detail-label">Zone d'intervention</span>
+                  <span class="contact__detail-value">Afrique & Moyen-Orient</span>
+                </div>
+              </li>
+              <li class="contact__detail-item">
+                <span class="contact__detail-icon">
+                  <i class="fas fa-clock" aria-hidden="true"></i>
+                </span>
+                <div>
+                  <span class="contact__detail-label">Réponse garantie</span>
+                  <span class="contact__detail-value">Sous 24 heures ouvrées</span>
+                </div>
+              </li>
+            </ul>
+
+            {/* Réseaux sociaux */}
+            <div class="contact__socials">
+              <a href="#" class="contact__social" aria-label="LinkedIn KryzOx">
+                <i class="fab fa-linkedin-in" aria-hidden="true"></i>
+              </a>
+              <a href="#" class="contact__social" aria-label="Twitter KryzOx">
+                <i class="fab fa-x-twitter" aria-hidden="true"></i>
+              </a>
+              <a href="#" class="contact__social" aria-label="YouTube KryzOx">
+                <i class="fab fa-youtube" aria-hidden="true"></i>
+              </a>
+            </div>
+          </div>
+
+          {/* Formulaire droite */}
+          <div class="contact__form-wrap">
+            <form
+              id="contactForm"
+              class="contact__form"
+              novalidate
+            >
+              <div class="contact__form-row">
+                <div class="contact__field">
+                  <label class="contact__label" for="cf-name">Nom complet *</label>
+                  <input
+                    type="text"
+                    id="cf-name"
+                    name="name"
+                    class="contact__input"
+                    placeholder="Jean Dupont"
+                    required
+                  />
+                </div>
+                <div class="contact__field">
+                  <label class="contact__label" for="cf-email">Email professionnel *</label>
+                  <input
+                    type="email"
+                    id="cf-email"
+                    name="email"
+                    class="contact__input"
+                    placeholder="jean@entreprise.com"
+                    required
+                  />
+                </div>
+              </div>
+
+              <div class="contact__form-row">
+                <div class="contact__field">
+                  <label class="contact__label" for="cf-company">Entreprise</label>
+                  <input
+                    type="text"
+                    id="cf-company"
+                    name="company"
+                    class="contact__input"
+                    placeholder="Votre entreprise"
+                  />
+                </div>
+                <div class="contact__field">
+                  <label class="contact__label" for="cf-service">Service concerné</label>
+                  <select id="cf-service" name="service" class="contact__select">
+                    <option value="">Choisir un service…</option>
+                    <option value="bdd">Bases de données</option>
+                    <option value="intelligence">Intelligence des données</option>
+                    <option value="strategie">Stratégie data</option>
+                    <option value="postgresql">PostgreSQL Enterprise</option>
+                    <option value="formation">Formation</option>
+                    <option value="autre">Autre</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="contact__field contact__field--full">
+                <label class="contact__label" for="cf-message">Votre message *</label>
+                <textarea
+                  id="cf-message"
+                  name="message"
+                  class="contact__textarea"
+                  rows={5}
+                  placeholder="Décrivez votre projet, vos enjeux ou votre besoin…"
+                  required
+                ></textarea>
+              </div>
+
+              <button type="submit" class="contact__submit" id="contactSubmit">
+                <span class="contact__submit-text">
+                  <i class="fas fa-paper-plane" aria-hidden="true"></i>
+                  Envoyer le message
+                </span>
+                <span class="contact__submit-loading" aria-hidden="true">
+                  <i class="fas fa-spinner fa-spin"></i>
+                  Envoi en cours…
+                </span>
+              </button>
+
+              <p class="contact__legal">
+                En soumettant ce formulaire, vous acceptez que vos données soient utilisées
+                pour vous recontacter dans le cadre de votre demande.
+              </p>
+
+              {/* Message de succès / erreur */}
+              <div id="contactSuccess" class="contact__feedback contact__feedback--success" aria-live="polite">
+                <i class="fas fa-circle-check" aria-hidden="true"></i>
+                Votre message a bien été envoyé ! Nous vous répondrons sous 24h.
+              </div>
+              <div id="contactError" class="contact__feedback contact__feedback--error" aria-live="polite">
+                <i class="fas fa-circle-exclamation" aria-hidden="true"></i>
+                Une erreur est survenue. Veuillez réessayer ou nous écrire directement.
+              </div>
+            </form>
+          </div>
+
+        </div>
       </section>
-      <section
-        id="contact"
-        style="height: 100vh; display:flex; align-items:center; justify-content:center; background:#f1f5f9;"
-      >
-        <p style="color:#00747c; font-size:1.5rem; font-family:'Inter',sans-serif;">
-          Section Contact — À venir
-        </p>
-      </section>
+
+      {/* ===== FOOTER ===== */}
+      <footer class="footer" role="contentinfo">
+        <div class="footer__inner">
+
+          {/* Colonne marque */}
+          <div class="footer__brand">
+            <a href="#accueil" class="footer__logo" aria-label="KryzOx Technologies">
+              <img src="/static/logo-white.png" alt="KryzOx Technologies" class="footer__logo-img" />
+            </a>
+            <p class="footer__tagline">
+              La Digital Factory africaine qui transforme vos données en moteur de croissance.
+            </p>
+            <div class="footer__socials">
+              <a href="#" class="footer__social" aria-label="LinkedIn">
+                <i class="fab fa-linkedin-in" aria-hidden="true"></i>
+              </a>
+              <a href="#" class="footer__social" aria-label="Twitter / X">
+                <i class="fab fa-x-twitter" aria-hidden="true"></i>
+              </a>
+              <a href="#" class="footer__social" aria-label="YouTube">
+                <i class="fab fa-youtube" aria-hidden="true"></i>
+              </a>
+            </div>
+          </div>
+
+          {/* Colonne Services */}
+          <div class="footer__col">
+            <h4 class="footer__col-title">Services</h4>
+            <ul class="footer__links">
+              <li><a href="#services" class="footer__link">Bases de données</a></li>
+              <li><a href="#intelligence" class="footer__link">Intelligence des données</a></li>
+              <li><a href="#strategie" class="footer__link">Stratégie data</a></li>
+              <li><a href="#postgresql" class="footer__link">PostgreSQL Enterprise</a></li>
+              <li><a href="#services" class="footer__link">Formation</a></li>
+            </ul>
+          </div>
+
+          {/* Colonne Entreprise */}
+          <div class="footer__col">
+            <h4 class="footer__col-title">Entreprise</h4>
+            <ul class="footer__links">
+              <li><a href="#apropos" class="footer__link">À propos de nous</a></li>
+              <li><a href="#valeurs" class="footer__link">Nos valeurs</a></li>
+              <li><a href="#pourquoi" class="footer__link">Pourquoi nous choisir</a></li>
+              <li><a href="#news" class="footer__link">Actualités</a></li>
+              <li><a href="#blog" class="footer__link">Blog</a></li>
+            </ul>
+          </div>
+
+          {/* Colonne Contact */}
+          <div class="footer__col">
+            <h4 class="footer__col-title">Contact</h4>
+            <ul class="footer__links">
+              <li>
+                <a href="mailto:contact@kryzotec.com" class="footer__link footer__link--icon">
+                  <i class="fas fa-envelope" aria-hidden="true"></i>
+                  contact@kryzotec.com
+                </a>
+              </li>
+              <li>
+                <span class="footer__link footer__link--icon">
+                  <i class="fas fa-earth-africa" aria-hidden="true"></i>
+                  Afrique &amp; Moyen-Orient
+                </span>
+              </li>
+            </ul>
+            <a href="#contact" class="footer__cta">
+              Nous contacter
+              <svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <path d="M3 8H13M9 4L13 8L9 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </a>
+          </div>
+
+        </div>
+
+        {/* Barre de copyright */}
+        <div class="footer__bottom">
+          <div class="footer__bottom-inner">
+            <p class="footer__copyright">
+              © {new Date().getFullYear()} KryzOx Technologies. Tous droits réservés.
+            </p>
+            <div class="footer__legal-links">
+              <a href="#" class="footer__legal-link">Mentions légales</a>
+              <a href="#" class="footer__legal-link">Politique de confidentialité</a>
+            </div>
+          </div>
+        </div>
+      </footer>
 
       {/* Scripts */}
       <script src="/static/main.js"></script>
+      <script src="/static/contact.js"></script>
     </>,
   );
 });
