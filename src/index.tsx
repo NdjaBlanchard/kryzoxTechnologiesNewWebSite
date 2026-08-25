@@ -92,6 +92,755 @@ app.post("/api/contact", async (c) => {
   }
 });
 
+/* ═══════════════════════════════════════════════════════
+   COMPOSANT PARTAGÉ — Navbar + Footer (pages internes)
+   ═══════════════════════════════════════════════════════ */
+function PageNav({ active }: { active: "apropos" | "services" | "accueil" }) {
+  return (
+    <header id="navbar" class="navbar navbar--page">
+      <div class="navbar__inner">
+        <a href="/" class="navbar__logo" aria-label="KryzOx Technologies - Accueil">
+          <img src="/static/logo-white.png" alt="KryzOx Technologies" class="navbar__logo-img navbar__logo-white" />
+          <img src="/static/logo-color.png" alt="KryzOx Technologies" class="navbar__logo-img navbar__logo-color" />
+        </a>
+        <nav class="navbar__nav" role="navigation" aria-label="Navigation principale">
+          <ul class="navbar__list">
+            <li class="navbar__item">
+              <a href="/" class={`navbar__link${active === "accueil" ? " navbar__link--active" : ""}`}>Accueil</a>
+            </li>
+            <li class="navbar__item">
+              <a href="/nos-services" class={`navbar__link${active === "services" ? " navbar__link--active" : ""}`}>Nos Services</a>
+            </li>
+            <li class="navbar__item">
+              <a href="/a-propos" class={`navbar__link${active === "apropos" ? " navbar__link--active" : ""}`}>À Propos de Nous</a>
+            </li>
+            <li class="navbar__item navbar__item--dropdown">
+              <button class="navbar__link navbar__link--dropdown-trigger" aria-expanded="false" aria-haspopup="true">
+                Ressources
+                <svg class="navbar__chevron" width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+                  <path d="M2 4L6 8L10 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </button>
+              <div class="navbar__dropdown" role="menu">
+                <div class="navbar__dropdown-inner">
+                  <a href="/#news" class="navbar__dropdown-link" role="menuitem">
+                    <span class="navbar__dropdown-icon"><i class="fas fa-newspaper" aria-hidden="true"></i></span>
+                    <span><strong>News</strong><em>Actualités & annonces</em></span>
+                  </a>
+                  <a href="/#blog" class="navbar__dropdown-link" role="menuitem">
+                    <span class="navbar__dropdown-icon"><i class="fas fa-pen-nib" aria-hidden="true"></i></span>
+                    <span><strong>Blog</strong><em>Articles & insights data</em></span>
+                  </a>
+                </div>
+              </div>
+            </li>
+            <li class="navbar__item">
+              <a href="/#contact" class="navbar__link navbar__link--cta">Contact</a>
+            </li>
+          </ul>
+        </nav>
+        <button class="navbar__burger" id="burgerBtn" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="mobileMenu">
+          <span class="navbar__burger-bar"></span>
+          <span class="navbar__burger-bar"></span>
+          <span class="navbar__burger-bar"></span>
+        </button>
+      </div>
+      <div class="navbar__mobile" id="mobileMenu" aria-hidden="true">
+        <nav aria-label="Navigation mobile">
+          <ul class="navbar__mobile-list">
+            <li><a href="/" class="navbar__mobile-link">Accueil</a></li>
+            <li><a href="/nos-services" class="navbar__mobile-link">Nos Services</a></li>
+            <li><a href="/a-propos" class="navbar__mobile-link">À Propos de Nous</a></li>
+            <li class="navbar__mobile-group">
+              <button class="navbar__mobile-link navbar__mobile-link--parent" aria-expanded="false">
+                Ressources <i class="fas fa-chevron-down" aria-hidden="true"></i>
+              </button>
+              <ul class="navbar__mobile-sub">
+                <li><a href="/#news" class="navbar__mobile-sublink"><i class="fas fa-newspaper"></i> News</a></li>
+                <li><a href="/#blog" class="navbar__mobile-sublink"><i class="fas fa-pen-nib"></i> Blog</a></li>
+              </ul>
+            </li>
+            <li><a href="/#contact" class="navbar__mobile-link navbar__mobile-link--cta">Contact</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+  );
+}
+
+function PageFooter() {
+  return (
+    <footer class="footer" role="contentinfo">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <a href="/" class="footer__logo" aria-label="KryzOx Technologies">
+            <img src="/static/logo-white.png" alt="KryzOx Technologies" class="footer__logo-img" />
+          </a>
+          <p class="footer__tagline">La Digital Factory africaine qui transforme vos données en moteur de croissance.</p>
+          <div class="footer__socials">
+            <a href="#" class="footer__social" aria-label="LinkedIn"><i class="fab fa-linkedin-in" aria-hidden="true"></i></a>
+            <a href="#" class="footer__social" aria-label="Twitter / X"><i class="fab fa-x-twitter" aria-hidden="true"></i></a>
+            <a href="#" class="footer__social" aria-label="YouTube"><i class="fab fa-youtube" aria-hidden="true"></i></a>
+          </div>
+        </div>
+        <div class="footer__col">
+          <h4 class="footer__col-title">Services</h4>
+          <ul class="footer__links">
+            <li><a href="/nos-services#databases" class="footer__link">Bases de données</a></li>
+            <li><a href="/nos-services#intelligence" class="footer__link">Intelligence des données</a></li>
+            <li><a href="/nos-services#strategie" class="footer__link">Stratégie data</a></li>
+            <li><a href="/nos-services#postgresql" class="footer__link">PostgreSQL Enterprise</a></li>
+            <li><a href="/nos-services#formation" class="footer__link">Formation</a></li>
+          </ul>
+        </div>
+        <div class="footer__col">
+          <h4 class="footer__col-title">Entreprise</h4>
+          <ul class="footer__links">
+            <li><a href="/a-propos" class="footer__link">À propos de nous</a></li>
+            <li><a href="/a-propos#valeurs" class="footer__link">Nos valeurs</a></li>
+            <li><a href="/a-propos#equipe" class="footer__link">Notre équipe</a></li>
+            <li><a href="/#pourquoi" class="footer__link">Pourquoi nous choisir</a></li>
+            <li><a href="/#contact" class="footer__link">Actualités</a></li>
+          </ul>
+        </div>
+        <div class="footer__col">
+          <h4 class="footer__col-title">Contact</h4>
+          <ul class="footer__links">
+            <li>
+              <a href="mailto:contact@kryzotec.com" class="footer__link footer__link--icon">
+                <i class="fas fa-envelope" aria-hidden="true"></i>contact@kryzotec.com
+              </a>
+            </li>
+            <li>
+              <span class="footer__link footer__link--icon">
+                <i class="fas fa-earth-africa" aria-hidden="true"></i>Afrique &amp; Moyen-Orient
+              </span>
+            </li>
+          </ul>
+          <a href="/#contact" class="footer__cta">
+            Nous contacter
+            <svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path d="M3 8H13M9 4L13 8L9 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <div class="footer__bottom-inner">
+          <p class="footer__copyright">© {new Date().getFullYear()} KryzOx Technologies. Tous droits réservés.</p>
+          <div class="footer__legal-links">
+            <a href="#" class="footer__legal-link">Mentions légales</a>
+            <a href="#" class="footer__legal-link">Politique de confidentialité</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+}
+
+/* ═══════════════════════════════════════════════════
+   PAGE — À PROPOS DE NOUS  (/a-propos)
+   ═══════════════════════════════════════════════════ */
+app.get("/a-propos", (c) => {
+  return c.render(
+    <>
+      <PageNav active="apropos" />
+
+      {/* ── Hero interne ── */}
+      <section class="page-hero page-hero--dark">
+        <div class="page-hero__overlay"></div>
+        <img src="/static/about-team.jpg" alt="" class="page-hero__bg" aria-hidden="true" />
+        <div class="page-hero__content">
+          <nav class="page-hero__breadcrumb" aria-label="Fil d'Ariane">
+            <a href="/">Accueil</a>
+            <i class="fas fa-chevron-right" aria-hidden="true"></i>
+            <span>À propos de nous</span>
+          </nav>
+          <span class="page-hero__eyebrow">Qui sommes-nous</span>
+          <h1 class="page-hero__title">
+            La Digital Factory<br />
+            <span class="page-hero__accent">au service de l'Afrique</span>
+          </h1>
+          <p class="page-hero__sub">
+            Experts certifiés, ancrés localement, engagés pour la souveraineté numérique du continent africain.
+          </p>
+        </div>
+      </section>
+
+      {/* ── Mission & Vision ── */}
+      <section class="ap-mission">
+        <div class="ap-mission__inner">
+          <div class="ap-mission__text">
+            <span class="ap-eyebrow">Notre raison d'être</span>
+            <h2 class="ap-title">
+              Transformer la donnée africaine<br />
+              <span class="ap-accent">en levier de souveraineté</span>
+            </h2>
+            <p class="ap-lead">
+              KryzOx Technologies est une Digital Factory spécialisée dans la gestion, l'intelligence
+              et la stratégie des données pour l'Afrique et le Moyen-Orient. Née d'une conviction forte —
+              que les entreprises africaines méritent des solutions data de niveau mondial — nous
+              accompagnons nos clients dans leur transformation numérique avec des approches
+              souveraines, éthiques et conçues pour leur réalité.
+            </p>
+            <p class="ap-body">
+              Nous intervenons aux côtés des institutions publiques, banques, assurances, grandes
+              entreprises et ONG pour faire de la donnée le moteur de leurs décisions stratégiques.
+              Notre promesse&nbsp;: de la valeur en 90 jours, pas en 3 ans.
+            </p>
+            <div class="ap-mission__kpis">
+              <div class="ap-kpi">
+                <span class="ap-kpi__value">90</span>
+                <span class="ap-kpi__unit">jours</span>
+                <span class="ap-kpi__label">Time-to-value garanti</span>
+              </div>
+              <div class="ap-kpi">
+                <span class="ap-kpi__value">15+</span>
+                <span class="ap-kpi__unit">ans</span>
+                <span class="ap-kpi__label">D'expérience cumulée</span>
+              </div>
+              <div class="ap-kpi">
+                <span class="ap-kpi__value">8</span>
+                <span class="ap-kpi__unit">secteurs</span>
+                <span class="ap-kpi__label">D'intervention</span>
+              </div>
+              <div class="ap-kpi">
+                <span class="ap-kpi__value">100%</span>
+                <span class="ap-kpi__unit"></span>
+                <span class="ap-kpi__label">Souverain & sécurisé</span>
+              </div>
+            </div>
+          </div>
+          <div class="ap-mission__visual">
+            <img src="/static/about-mission.jpg" alt="KryzOx Technologies — Afrique numérique" class="ap-mission__img" />
+            <div class="ap-mission__badge">
+              <i class="fas fa-award" aria-hidden="true"></i>
+              Distributeur Officiel<br />PostgreSQL Enterprise
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Nos valeurs ── */}
+      <section id="valeurs" class="ap-valeurs">
+        <div class="ap-valeurs__inner">
+          <div class="ap-section-head ap-section-head--center">
+            <span class="ap-eyebrow">Ce qui nous anime</span>
+            <h2 class="ap-title ap-title--dark">Nos valeurs fondamentales</h2>
+            <p class="ap-section-sub">
+              Quatre principes non-négociables qui guident chaque décision, chaque projet et chaque relation client.
+            </p>
+          </div>
+          <div class="ap-valeurs__grid">
+            {[
+              { icon: "fa-handshake-angle", color: "teal", title: "Excellence du Service", text: "Nous livrons des solutions de haute qualité, dans les délais convenus, avec un accompagnement proactif à chaque étape. L'excellence n'est pas une option — c'est notre standard minimal." },
+              { icon: "fa-scale-balanced", color: "blue", title: "Intégrité & Respect", text: "Transparence, honnêteté et éthique guident chacune de nos décisions et de nos relations client. Nous disons ce que nous faisons, et faisons ce que nous disons." },
+              { icon: "fa-people-group", color: "teal", title: "Passion & Connexion", text: "Nous créons des liens durables entre les données, les équipes et les opportunités. Notre passion pour la tech africaine est le moteur qui nous distingue." },
+              { icon: "fa-lightbulb", color: "blue", title: "Innovation Continue", text: "Nous adoptons les meilleures technologies mondiales et les adaptons intelligemment aux réalités et contraintes du continent africain, sans jamais sacrifier la simplicité d'usage." },
+            ].map((v) => (
+              <article class={`ap-valeur-card ap-valeur-card--${v.color}`}>
+                <div class="ap-valeur-card__icon">
+                  <i class={`fas ${v.icon}`} aria-hidden="true"></i>
+                </div>
+                <h3 class="ap-valeur-card__title">{v.title}</h3>
+                <p class="ap-valeur-card__text">{v.text}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Notre histoire ── */}
+      <section class="ap-histoire">
+        <div class="ap-histoire__inner">
+          <div class="ap-histoire__timeline">
+            <div class="ap-section-head">
+              <span class="ap-eyebrow ap-eyebrow--light">Notre parcours</span>
+              <h2 class="ap-title ap-title--white">De la vision à l'impact</h2>
+              <p class="ap-section-sub ap-section-sub--light">
+                KryzOx Technologies est née d'une conviction : les entreprises africaines méritent
+                des solutions data souveraines, robustes et véritablement adaptées à leur contexte.
+              </p>
+            </div>
+            <div class="ap-timeline">
+              {[
+                { year: "Fondation", icon: "fa-flag", title: "Naissance de KryzOx Technologies", text: "Création de la structure avec une mission claire : démocratiser l'excellence data pour les organisations africaines. Focus initial sur la gestion de bases de données critiques Oracle & PostgreSQL." },
+                { year: "Expansion", icon: "fa-chart-line", title: "Partenariat PostgreSQL Enterprise", text: "Obtention du statut de distributeur agréé PostgreSQL Enterprise pour l'Afrique et le Moyen-Orient — une reconnaissance de notre niveau d'expertise technique." },
+                { year: "Innovation", icon: "fa-brain", title: "Lancement de la verticale Intelligence des données", text: "Développement d'une offre complète IA & Data Analytics : pipelines de données, Business Intelligence, Machine Learning appliqué et visualisation avancée." },
+                { year: "Aujourd'hui", icon: "fa-rocket", title: "La Digital Factory de référence", text: "KryzOx Technologies s'impose comme la Digital Factory de référence en Afrique — de la stratégie data à l'operating model, en passant par la formation et le transfert de compétences." },
+              ].map((item, i) => (
+                <div class="ap-timeline__item">
+                  <div class="ap-timeline__marker">
+                    <div class="ap-timeline__icon">
+                      <i class={`fas ${item.icon}`} aria-hidden="true"></i>
+                    </div>
+                    {i < 3 && <div class="ap-timeline__line" aria-hidden="true"></div>}
+                  </div>
+                  <div class="ap-timeline__body">
+                    <span class="ap-timeline__year">{item.year}</span>
+                    <h3 class="ap-timeline__title">{item.title}</h3>
+                    <p class="ap-timeline__text">{item.text}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Secteurs d'intervention ── */}
+      <section class="ap-secteurs">
+        <div class="ap-secteurs__inner">
+          <div class="ap-section-head ap-section-head--center">
+            <span class="ap-eyebrow">Nos domaines</span>
+            <h2 class="ap-title">Secteurs d'intervention</h2>
+            <p class="ap-section-sub">
+              KryzOx Technologies intervient dans les secteurs les plus exigeants du continent,
+              là où la fiabilité et la souveraineté des données sont critiques.
+            </p>
+          </div>
+          <div class="ap-secteurs__grid">
+            {[
+              { icon: "fa-landmark",          label: "Secteur Financier & Bancaire",  text: "Conformité, sécurité des données clients et reporting réglementaire en temps réel." },
+              { icon: "fa-shield-halved",      label: "Assurance",                     text: "Actuariat data-driven, détection de fraude et gestion des sinistres optimisée." },
+              { icon: "fa-tower-broadcast",    label: "Télécommunications",             text: "Analyse des usages réseau, personnalisation client et optimisation de la qualité de service." },
+              { icon: "fa-store",              label: "Commerce & Distribution",        text: "Prévision de la demande, gestion des stocks intelligente et expérience client augmentée." },
+              { icon: "fa-graduation-cap",     label: "Enseignement Supérieur",         text: "Pilotage pédagogique par les données, suivi des cohortes et optimisation des curricula." },
+              { icon: "fa-building-columns",   label: "Secteur Public",                 text: "E-gouvernance, open data, tableaux de bord citoyens et gestion des politiques publiques." },
+              { icon: "fa-industry",           label: "Mines & Industrie",              text: "Maintenance prédictive, traçabilité des actifs et optimisation des processus industriels." },
+              { icon: "fa-heart-pulse",        label: "Santé & Pharma",                 text: "Recherche clinique, pharmacovigilance et systèmes d'information hospitaliers souverains." },
+            ].map((s) => (
+              <article class="ap-secteur-card">
+                <div class="ap-secteur-card__icon">
+                  <i class={`fas ${s.icon}`} aria-hidden="true"></i>
+                </div>
+                <h3 class="ap-secteur-card__title">{s.label}</h3>
+                <p class="ap-secteur-card__text">{s.text}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Pourquoi nous choisir (condensé) ── */}
+      <section class="ap-why">
+        <div class="ap-why__inner">
+          <div class="ap-section-head">
+            <span class="ap-eyebrow ap-eyebrow--light">Notre différence</span>
+            <h2 class="ap-title ap-title--white">Ce qui nous distingue</h2>
+          </div>
+          <div class="ap-why__grid">
+            {[
+              { icon: "fa-earth-africa",   title: "Ancrés en Afrique",          text: "Équipe locale, contraintes locales — des solutions co-construites, pas copiées-collées." },
+              { icon: "fa-certificate",    title: "Expertise certifiée",         text: "Partenaires PostgreSQL Enterprise officiels. 15+ ans sur des environnements critiques." },
+              { icon: "fa-shield-halved",  title: "Souveraineté garantie",       text: "Conformité aux réglementations africaines et aux standards internationaux en vigueur." },
+              { icon: "fa-users",          title: "Transfert de compétences",    text: "Chaque mission inclut la formation de vos équipes pour une autonomie durable." },
+              { icon: "fa-rocket",         title: "Time-to-value en 90 jours",   text: "Notre méthode agile livre de la valeur en semaines, sans années d'attente." },
+              { icon: "fa-arrows-spin",    title: "Bout-en-bout sans sous-traitance", text: "Stratégie → Implémentation → Exploitation. Une seule équipe, une cohérence totale." },
+            ].map((item) => (
+              <div class="ap-why__card">
+                <i class={`fas ${item.icon} ap-why__card-icon`} aria-hidden="true"></i>
+                <h3 class="ap-why__card-title">{item.title}</h3>
+                <p class="ap-why__card-text">{item.text}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── CTA final ── */}
+      <section class="ap-cta">
+        <div class="ap-cta__inner">
+          <h2 class="ap-cta__title">Prêt à construire l'Afrique data avec nous ?</h2>
+          <p class="ap-cta__sub">Discutons de votre projet, de vos enjeux, de vos ambitions.</p>
+          <div class="ap-cta__actions">
+            <a href="/#contact" class="ap-cta__btn ap-cta__btn--primary">
+              <i class="fas fa-envelope" aria-hidden="true"></i>
+              Prendre contact
+            </a>
+            <a href="/nos-services" class="ap-cta__btn ap-cta__btn--ghost">
+              Voir nos services
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <path d="M3 8H13M9 4L13 8L9 12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <PageFooter />
+      <script src="/static/main.js"></script>
+    </>,
+    { title: "À Propos de Nous — KryzOx Technologies" }
+  );
+});
+
+/* ═══════════════════════════════════════════════════
+   PAGE — NOS SERVICES  (/nos-services)
+   ═══════════════════════════════════════════════════ */
+app.get("/nos-services", (c) => {
+  return c.render(
+    <>
+      <PageNav active="services" />
+
+      {/* ── Hero interne ── */}
+      <section class="page-hero page-hero--dark">
+        <div class="page-hero__overlay"></div>
+        <img src="/static/services-africa.jpg" alt="" class="page-hero__bg" aria-hidden="true" />
+        <div class="page-hero__content">
+          <nav class="page-hero__breadcrumb" aria-label="Fil d'Ariane">
+            <a href="/">Accueil</a>
+            <i class="fas fa-chevron-right" aria-hidden="true"></i>
+            <span>Nos Services</span>
+          </nav>
+          <span class="page-hero__eyebrow">Notre expertise</span>
+          <h1 class="page-hero__title">
+            Des solutions data<br />
+            <span class="page-hero__accent">pensées pour l'Afrique</span>
+          </h1>
+          <p class="page-hero__sub">
+            De la gestion de bases de données critiques à l'intelligence artificielle, en passant par la stratégie et la formation — une chaîne de valeur data complète.
+          </p>
+          <div class="page-hero__actions">
+            <a href="/#contact" class="page-hero__btn page-hero__btn--primary">
+              <i class="fas fa-envelope" aria-hidden="true"></i>
+              Discuter de votre projet
+            </a>
+            <a href="#nos-offres" class="page-hero__btn page-hero__btn--ghost">
+              Découvrir nos offres
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <path d="M3 8H13M9 4L13 8L9 12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Intro panoramique ── */}
+      <section class="sv-intro" id="nos-offres">
+        <div class="sv-intro__inner">
+          <div class="sv-intro__head">
+            <span class="sv-eyebrow">Ce que nous faisons</span>
+            <h2 class="sv-title">La chaîne de valeur data<br /><span class="sv-accent">de bout en bout</span></h2>
+            <p class="sv-intro__sub">
+              KryzOx Technologies couvre l'intégralité du cycle de vie de la donnée — de l'infrastructure
+              jusqu'à l'insight décisionnel — sans sous-traitance, pour une cohérence et une qualité sans compromis.
+            </p>
+          </div>
+          <div class="sv-intro__pillars">
+            {[
+              { icon: "fa-database",        num: "01", label: "Bases de données",         color: "teal" },
+              { icon: "fa-brain",           num: "02", label: "Intelligence des données",  color: "blue" },
+              { icon: "fa-chess",           num: "03", label: "Stratégie data",            color: "teal" },
+              { icon: "fa-elephant",        num: "04", label: "PostgreSQL Enterprise",     color: "blue" },
+              { icon: "fa-graduation-cap",  num: "05", label: "Formation",                 color: "teal" },
+            ].map((p) => (
+              <a href={`#sv-${p.num}`} class={`sv-pillar sv-pillar--${p.color}`}>
+                <span class="sv-pillar__num">{p.num}</span>
+                <div class="sv-pillar__icon">
+                  <i class={`fas ${p.icon}`} aria-hidden="true"></i>
+                </div>
+                <span class="sv-pillar__label">{p.label}</span>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── SERVICE 01 — Bases de données ── */}
+      <section id="databases" class="sv-service sv-service--dark" data-anchor="sv-01">
+        <div class="sv-service__inner">
+          <div class="sv-service__visual">
+            <img src="/static/svc-database.jpg" alt="Bases de données — KryzOx" class="sv-service__img" />
+            <div class="sv-service__visual-badge">
+              <i class="fas fa-database" aria-hidden="true"></i> Oracle & PostgreSQL
+            </div>
+          </div>
+          <div class="sv-service__content">
+            <span class="sv-service__num">01</span>
+            <span class="sv-eyebrow sv-eyebrow--light">DATA</span>
+            <h2 class="sv-service__title sv-service__title--light">
+              Gestion de bases de données<br />
+              <span class="sv-service__accent">critiques</span>
+            </h2>
+            <p class="sv-service__lead sv-service__lead--light">
+              Nous concevons, administrons et optimisons vos bases de données Oracle et PostgreSQL
+              pour les environnements les plus exigeants — haute disponibilité, sécurité renforcée,
+              performance garantie.
+            </p>
+            <div class="sv-service__features">
+              {[
+                { icon: "fa-shield-check",     text: "Administration DBA 24/7 et surveillance proactive" },
+                { icon: "fa-bolt-lightning",   text: "Tuning & optimisation des performances (index, requêtes, I/O)" },
+                { icon: "fa-copy",             text: "Réplication, clustering et haute disponibilité (RAC, Patroni)" },
+                { icon: "fa-arrow-right-arrow-left", text: "Migration Oracle → PostgreSQL : audit, planification, exécution" },
+                { icon: "fa-lock",             text: "Sécurité avancée : chiffrement, audit trail, contrôle d'accès" },
+                { icon: "fa-rotate",           text: "Backup, restauration et PRA (Plan de Reprise d'Activité)" },
+                { icon: "fa-cloud",            text: "Déploiement on-premise, cloud ou hybride selon vos contraintes" },
+                { icon: "fa-file-lines",       text: "Conformité réglementaire (RGPD, SOX, PCI-DSS...)" },
+              ].map((f) => (
+                <div class="sv-feature">
+                  <i class={`fas ${f.icon} sv-feature__icon`} aria-hidden="true"></i>
+                  <span>{f.text}</span>
+                </div>
+              ))}
+            </div>
+            <div class="sv-service__ctas">
+              <a href="/#contact" class="sv-btn sv-btn--primary">Demander un audit gratuit</a>
+              <a href="#postgresql" class="sv-btn sv-btn--ghost">Expert PostgreSQL →</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── SERVICE 02 — Intelligence des données ── */}
+      <section id="intelligence" class="sv-service sv-service--light" data-anchor="sv-02">
+        <div class="sv-service__inner sv-service__inner--reverse">
+          <div class="sv-service__content">
+            <span class="sv-service__num sv-service__num--dark">02</span>
+            <span class="sv-eyebrow">DATA & IA</span>
+            <h2 class="sv-service__title">
+              Intelligence des données<br />
+              <span class="sv-service__accent sv-service__accent--dark">& IA appliquée</span>
+            </h2>
+            <p class="sv-service__lead">
+              Transformez vos données brutes en décisions stratégiques. Nous construisons des
+              écosystèmes data end-to-end — des pipelines d'ingestion aux tableaux de bord
+              décisionnels — pour faire de chaque donnée un levier de compétitivité réel.
+            </p>
+            <div class="sv-service__features sv-service__features--dark">
+              {[
+                { icon: "fa-pipe-section",          text: "Pipelines ETL/ELT robustes, scalables et maintenables" },
+                { icon: "fa-chart-bar",             text: "Business Intelligence & reporting temps réel (Power BI, Tableau, Metabase)" },
+                { icon: "fa-brain",                 text: "Machine Learning appliqué : classification, prédiction, clustering" },
+                { icon: "fa-magnifying-glass-chart",text: "Analytique prédictive et prescriptive pour vos décisions business" },
+                { icon: "fa-warehouse",             text: "Data Warehouse & Data Lakehouse modernes (Snowflake, dbt, Delta Lake)" },
+                { icon: "fa-shield-check",          text: "Gouvernance et qualité des données (Data Quality, Data Catalog)" },
+                { icon: "fa-gear",                  text: "DataOps & automatisation des flux de données (Airflow, Prefect)" },
+                { icon: "fa-users-gear",            text: "Self-service analytics pour vos équipes métiers non-techniques" },
+              ].map((f) => (
+                <div class="sv-feature sv-feature--dark">
+                  <i class={`fas ${f.icon} sv-feature__icon`} aria-hidden="true"></i>
+                  <span>{f.text}</span>
+                </div>
+              ))}
+            </div>
+            <div class="sv-service__ctas">
+              <a href="/#contact" class="sv-btn sv-btn--primary">Parler à un expert IA</a>
+              <a href="/#intelligence" class="sv-btn sv-btn--outline">Voir les détails →</a>
+            </div>
+          </div>
+          <div class="sv-service__visual">
+            <img src="/static/svc-intelligence.jpg" alt="Intelligence des données — KryzOx" class="sv-service__img" />
+            <div class="sv-service__metric sv-service__metric--top">
+              <span class="sv-service__metric-val">+340%</span>
+              <span class="sv-service__metric-lbl">ROI moyen constaté</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── SERVICE 03 — Stratégie Data ── */}
+      <section id="strategie" class="sv-service sv-service--dark" data-anchor="sv-03">
+        <div class="sv-service__inner">
+          <div class="sv-service__visual">
+            <img src="/static/svc-strategie.jpg" alt="Stratégie data — KryzOx" class="sv-service__img" />
+            <div class="sv-service__visual-badge">
+              <i class="fas fa-chess" aria-hidden="true"></i> Advisory
+            </div>
+          </div>
+          <div class="sv-service__content">
+            <span class="sv-service__num">03</span>
+            <span class="sv-eyebrow sv-eyebrow--light">CONSEIL</span>
+            <h2 class="sv-service__title sv-service__title--light">
+              Stratégie data<br />
+              <span class="sv-service__accent">& transformation digitale</span>
+            </h2>
+            <p class="sv-service__lead sv-service__lead--light">
+              De l'audit de maturité à l'operating model Digital Factory — nous vous donnons
+              une feuille de route claire, réaliste et actionnable pour faire de la donnée
+              votre avantage compétitif durable.
+            </p>
+            <div class="sv-service__phases">
+              {[
+                { num: "01", title: "Audit de maturité data",           text: "Évaluation 360° de votre patrimoine, usages et organisation. Identification des gaps et des quick wins." },
+                { num: "02", title: "Vision & feuille de route",         text: "Co-construction d'une vision alignée sur vos enjeux business. Priorisation et jalons de succès." },
+                { num: "03", title: "Gouvernance & Data Office",          text: "Mise en place des rôles, politiques qualité et sécurité des données. CDO, Data Stewards, Engineers." },
+                { num: "04", title: "Operating model Digital Factory",   text: "Modèle opérationnel agile pour produire et valoriser vos actifs data en continu." },
+                { num: "05", title: "Acculturation & Change management",  text: "Programme d'accompagnement pour ancrer la culture data du COMEX aux équipes terrain." },
+              ].map((ph) => (
+                <div class="sv-phase">
+                  <span class="sv-phase__num">{ph.num}</span>
+                  <div class="sv-phase__body">
+                    <h4 class="sv-phase__title">{ph.title}</h4>
+                    <p class="sv-phase__text">{ph.text}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div class="sv-service__ctas">
+              <a href="/#contact" class="sv-btn sv-btn--primary">
+                <i class="fas fa-calendar-check" aria-hidden="true"></i>
+                Demander un audit gratuit
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── SERVICE 04 — PostgreSQL Enterprise ── */}
+      <section id="postgresql" class="sv-service sv-service--light" data-anchor="sv-04">
+        <div class="sv-service__inner sv-service__inner--reverse">
+          <div class="sv-service__content">
+            <span class="sv-service__num sv-service__num--dark">04</span>
+            <span class="sv-eyebrow">POSTGRESQL ENTERPRISE</span>
+            <h2 class="sv-service__title">
+              Distributeur officiel<br />
+              <span class="sv-service__accent sv-service__accent--dark">PostgreSQL Enterprise en Afrique</span>
+            </h2>
+            <p class="sv-service__lead">
+              KryzOx Technologies est distributeur agréé de solutions PostgreSQL Enterprise
+              pour l'Afrique et le Moyen-Orient. Nous accompagnons les organisations dans
+              leur migration depuis les bases propriétaires (Oracle, SQL Server) vers
+              PostgreSQL, avec garantie SLA et support de niveau mondial.
+            </p>
+            <div class="sv-service__checklist">
+              {[
+                "Économies substantielles vs licences propriétaires Oracle / SQL Server",
+                "Base relationnelle la plus avancée du monde — fiable, extensible, ACID",
+                "Migration facilitée depuis Oracle, SQL Server, MySQL",
+                "Garantie SLA 24h/7 — support entreprise mondial",
+                "Haute disponibilité : réplication, clustering, failover automatique",
+                "Sécurité enterprise : chiffrement, LDAP/AD, Row-Level Security",
+                "Prêt cloud & conteneurs (Docker, Kubernetes, AWS RDS, Azure)",
+                "Formation incluse et montée en compétence de vos équipes DBA",
+              ].map((item) => (
+                <div class="sv-check">
+                  <i class="fas fa-circle-check sv-check__icon" aria-hidden="true"></i>
+                  <span>{item}</span>
+                </div>
+              ))}
+            </div>
+            <div class="sv-service__ctas">
+              <a href="/#contact" class="sv-btn sv-btn--primary">Demander une démo</a>
+              <a href="/#postgresql" class="sv-btn sv-btn--outline">Voir l'offre complète →</a>
+            </div>
+          </div>
+          <div class="sv-service__visual">
+            <img src="/static/postgres-elephant.jpg" alt="PostgreSQL Enterprise — KryzOx" class="sv-service__img" />
+            <div class="sv-service__visual-badge sv-service__visual-badge--light">
+              <i class="fas fa-award" aria-hidden="true"></i> Distributeur Officiel
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── SERVICE 05 — Formation ── */}
+      <section id="formation" class="sv-service sv-service--dark" data-anchor="sv-05">
+        <div class="sv-service__inner">
+          <div class="sv-service__visual">
+            <img src="/static/svc-formation.jpg" alt="Formation data — KryzOx" class="sv-service__img" />
+            <div class="sv-service__visual-badge">
+              <i class="fas fa-graduation-cap" aria-hidden="true"></i> Certifiant
+            </div>
+          </div>
+          <div class="sv-service__content">
+            <span class="sv-service__num">05</span>
+            <span class="sv-eyebrow sv-eyebrow--light">FORMATION</span>
+            <h2 class="sv-service__title sv-service__title--light">
+              Formations data<br />
+              <span class="sv-service__accent">sur mesure</span>
+            </h2>
+            <p class="sv-service__lead sv-service__lead--light">
+              Nous ne créons pas de dépendance. Chaque programme de formation est conçu pour
+              autonomiser vos équipes — des fondamentaux SQL jusqu'au coaching expert
+              en data engineering et intelligence artificielle.
+            </p>
+            <div class="sv-service__catalog">
+              {[
+                { icon: "fa-database",    title: "SQL & Administration BDD",   level: "Initiation → Expert",      text: "SQL avancé, optimisation de requêtes, administration PostgreSQL / Oracle, sauvegardes." },
+                { icon: "fa-brain",       title: "Data Engineering & ETL",     level: "Intermédiaire → Expert",   text: "Pipelines de données, Apache Spark, Airflow, dbt, modélisation Data Warehouse." },
+                { icon: "fa-chart-pie",   title: "Business Intelligence & BI", level: "Débutant → Avancé",        text: "Power BI, Tableau, Metabase, conception de tableaux de bord, KPIs métiers." },
+                { icon: "fa-robot",       title: "Machine Learning appliqué",  level: "Avancé → Expert",          text: "Python, scikit-learn, TensorFlow, cas d'usage business réels et projets guidés." },
+                { icon: "fa-compass",     title: "Culture data & Gouvernance", level: "Tous niveaux",             text: "Sensibilisation COMEX, politique qualité données, rôles & responsabilités Data Office." },
+                { icon: "fa-users-gear",  title: "Coaching équipe sur projet", level: "Sur mesure",               text: "Accompagnement hands-on de vos équipes directement sur vos projets data internes." },
+              ].map((prog) => (
+                <article class="sv-prog">
+                  <div class="sv-prog__icon">
+                    <i class={`fas ${prog.icon}`} aria-hidden="true"></i>
+                  </div>
+                  <div class="sv-prog__body">
+                    <div class="sv-prog__header">
+                      <h4 class="sv-prog__title">{prog.title}</h4>
+                      <span class="sv-prog__level">{prog.level}</span>
+                    </div>
+                    <p class="sv-prog__text">{prog.text}</p>
+                  </div>
+                </article>
+              ))}
+            </div>
+            <div class="sv-service__ctas">
+              <a href="/#contact" class="sv-btn sv-btn--primary">
+                <i class="fas fa-paper-plane" aria-hidden="true"></i>
+                Demander un programme sur mesure
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Comparatif / Pourquoi KryzOx ── */}
+      <section class="sv-compare">
+        <div class="sv-compare__inner">
+          <div class="ap-section-head ap-section-head--center">
+            <span class="sv-eyebrow">Notre engagement</span>
+            <h2 class="sv-title">Pourquoi choisir KryzOx pour vos projets data ?</h2>
+          </div>
+          <div class="sv-compare__grid">
+            {[
+              { icon: "fa-earth-africa",  title: "Expertise locale",           text: "Connaissance profonde des contraintes africaines : réglementation, infrastructure, culture métier." },
+              { icon: "fa-certificate",   title: "Certifications officielles",  text: "Partenaire PostgreSQL Enterprise. Experts certifiés Oracle, AWS, Azure et outils BI leaders." },
+              { icon: "fa-arrows-spin",   title: "Full-service sans lacunes",   text: "Un seul interlocuteur de la stratégie à l'exploitation. Pas de sous-traitance, pas de silos." },
+              { icon: "fa-rocket",        title: "Livraison en 90 jours",       text: "Méthodologie agile éprouvée. Premiers résultats mesurables dès les premières semaines." },
+            ].map((item) => (
+              <div class="sv-compare__card">
+                <div class="sv-compare__icon">
+                  <i class={`fas ${item.icon}`} aria-hidden="true"></i>
+                </div>
+                <h3 class="sv-compare__title">{item.title}</h3>
+                <p class="sv-compare__text">{item.text}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── CTA final ── */}
+      <section class="ap-cta">
+        <div class="ap-cta__inner">
+          <h2 class="ap-cta__title">Un projet data en tête ?</h2>
+          <p class="ap-cta__sub">
+            Nos experts vous répondent sous 24h — audit gratuit, sans engagement.
+          </p>
+          <div class="ap-cta__actions">
+            <a href="/#contact" class="ap-cta__btn ap-cta__btn--primary">
+              <i class="fas fa-calendar-check" aria-hidden="true"></i>
+              Démarrer un projet
+            </a>
+            <a href="/a-propos" class="ap-cta__btn ap-cta__btn--ghost">
+              En savoir plus sur KryzOx →
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <PageFooter />
+      <script src="/static/main.js"></script>
+    </>,
+    { title: "Nos Services — KryzOx Technologies" }
+  );
+});
+
 app.get("/", (c) => {
   return c.render(
     <>
@@ -129,12 +878,12 @@ app.get("/", (c) => {
                 </a>
               </li>
               <li class="navbar__item">
-                <a href="#services" class="navbar__link">
+                <a href="/nos-services" class="navbar__link">
                   Nos Services
                 </a>
               </li>
               <li class="navbar__item">
-                <a href="#apropos" class="navbar__link">
+                <a href="/a-propos" class="navbar__link">
                   À Propos de Nous
                 </a>
               </li>
@@ -225,12 +974,12 @@ app.get("/", (c) => {
                 </a>
               </li>
               <li>
-                <a href="#services" class="navbar__mobile-link">
+                <a href="/nos-services" class="navbar__mobile-link">
                   Nos Services
                 </a>
               </li>
               <li>
-                <a href="#apropos" class="navbar__mobile-link">
+                <a href="/a-propos" class="navbar__mobile-link">
                   À Propos de Nous
                 </a>
               </li>

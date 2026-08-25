@@ -1,6 +1,9 @@
 import { jsxRenderer } from "hono/jsx-renderer";
 
-export const renderer = jsxRenderer(({ children }) => {
+export const renderer = jsxRenderer(({ children, title }) => {
+  const pageTitle = title
+    ? String(title)
+    : "KryzOx Technologies — Digital Factory Africaine";
   return (
     <html lang="fr">
       <head>
@@ -10,7 +13,7 @@ export const renderer = jsxRenderer(({ children }) => {
           name="description"
           content="KryzOx Technologies - La Digital Factory qui transforme la donnée africaine en levier stratégique"
         />
-        <title>KryzOx Technologies — Digital Factory Africaine</title>
+        <title>{pageTitle}</title>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
           rel="preconnect"
