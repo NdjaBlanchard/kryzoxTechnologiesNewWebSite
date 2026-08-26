@@ -1,11 +1,11 @@
 import { Hono } from "hono";
 import { renderer } from "./renderer";
-import { serveStatic } from "hono/cloudflare-workers";
+import { serveStatic } from "@hono/node-server/serve-static";
 
 const app = new Hono();
 
 app.use(renderer);
-app.use("/static/*", serveStatic({ root: "./" }));
+app.use("/static/*", serveStatic({ root: "./public" }));
 
 /* ── Route API : formulaire de contact → email ── */
 app.post("/api/contact", async (c) => {
@@ -50,9 +50,8 @@ app.post("/api/contact", async (c) => {
     // Envoi via l'API Web Fetch (compatible Cloudflare Workers)
     // Utilise un service SMTP-to-HTTP ou Mailgun si configuré
     // En l'absence de clé API, on log et on retourne succès (dev mode)
-    const env = c.env as Record<string, string>;
-    const mailgunKey = env?.MAILGUN_API_KEY;
-    const mailgunDomain = env?.MAILGUN_DOMAIN || "kryzotec.com";
+    const mailgunKey = process.env.MAILGUN_API_KEY;
+    const mailgunDomain = process.env.MAILGUN_DOMAIN || "kryzotec.com";
 
     if (mailgunKey) {
       const formData = new FormData();
