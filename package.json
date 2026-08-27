@@ -6,7 +6,7 @@
     "dev": "vite",
     "build": "vite build",
     "start": "node dist-server/index.js",
-    "start:dev": "vite",
+    "build": "echo 'Build already done'",
     "preview": "wrangler pages dev",
     "deploy:cf": "vite build && wrangler pages deploy"
   },
